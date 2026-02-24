@@ -1693,19 +1693,70 @@
         transform: translateY(0);
       }
 
+      /* ---- Mobile Nav Toggle ---- */
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        color: var(--text);
+      }
+
+      .nav-toggle span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: currentColor;
+        margin: 4px 0;
+        border-radius: 1px;
+        transition: all 0.3s;
+      }
+
+      .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(4px, 4px);
+      }
+
+      .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+      }
+
       /* ---- Responsive ---- */
-      @media (max-width: 768px) {
-        section {
-          padding: 80px 0;
-        }
-        .hero {
-          padding: 140px 0 80px;
+
+      /* Clip decorative elements that can cause horizontal overflow */
+      .hero,
+      .cta-section {
+        overflow: hidden;
+      }
+
+      .mock-canvas {
+        overflow: hidden;
+      }
+
+      /* Wrap comparison table for horizontal scroll on small screens */
+      .comparison-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* ---- Tablet (769px - 1024px) ---- */
+      @media (max-width: 1024px) {
+        .mockup-body {
+          grid-template-columns: 1fr;
+          min-height: auto;
         }
 
-        .problem-grid,
-        .diff-grid,
-        .persona-grid {
-          grid-template-columns: 1fr;
+        .mock-chat,
+        .mock-preview {
+          display: none;
+        }
+
+        .mock-canvas {
+          min-height: 300px;
         }
 
         .pipeline-steps {
@@ -1725,22 +1776,44 @@
         }
 
         .metrics-grid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 24px;
         }
 
-        .mockup-body {
+        .diff-grid,
+        .persona-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+        }
+
+        .comparison-table td:first-child {
+          white-space: normal;
+        }
+      }
+
+      /* ---- Mobile (max-width: 768px) ---- */
+      @media (max-width: 768px) {
+        section {
+          padding: 80px 0;
+        }
+
+        .hero {
+          padding: 140px 0 80px;
+        }
+
+        .problem-grid,
+        .diff-grid,
+        .persona-grid {
           grid-template-columns: 1fr;
-          min-height: auto;
         }
 
-        .mock-chat,
-        .mock-preview {
-          display: none;
-        }
-
-        .mock-canvas {
-          min-height: 300px;
+        .metrics-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 24px;
         }
 
         .before-after {
@@ -1754,6 +1827,7 @@
 
         .comparison-table {
           font-size: 12px;
+          min-width: 500px;
         }
 
         .comparison-table td,
@@ -1767,8 +1841,40 @@
           align-items: center;
         }
 
+        .nav-toggle {
+          display: block;
+        }
+
         .nav-links {
           display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background: var(--bg);
+          padding: 16px 24px;
+          gap: 0;
+          border-bottom: 1px solid var(--border);
+          text-align: center;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .nav-links li {
+          padding: 12px 0;
+          border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-links li:last-child {
+          border-bottom: none;
+          padding-top: 16px;
+        }
+
+        .nav-links a {
+          font-size: 16px;
         }
 
         .footer-grid {
@@ -1781,6 +1887,41 @@
           gap: 4px;
         }
       }
+
+      /* ---- Small Mobile (max-width: 480px) ---- */
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 16px;
+        }
+
+        .hero {
+          padding: 120px 0 60px;
+        }
+
+        .hero-sub {
+          font-size: 16px;
+        }
+
+        .metrics-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+
+        .metric-value {
+          font-size: 24px;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .era-table th,
+        .era-table td {
+          padding: 10px 8px;
+          font-size: 13px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1788,6 +1929,11 @@
     <nav>
       <div class="container">
         <a href="#" class="logo">terso<span>.</span></a>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <ul class="nav-links">
           <li><a href="#how">How It Works</a></li>
           <li><a href="#features">Features</a></li>
@@ -2436,54 +2582,56 @@
           </p>
         </div>
 
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>Dimension</th>
-              <th>Code Audit (Agency)</th>
-              <th>Code Analysis (SonarQube)</th>
-              <th>Terso</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Output</td>
-              <td>PDF report, one-time</td>
-              <td>Code quality metrics</td>
-              <td>Living behavior map</td>
-            </tr>
-            <tr>
-              <td>Frequency</td>
-              <td>Point-in-time</td>
-              <td>Continuous (code-level)</td>
-              <td>Continuous (behavior-level)</td>
-            </tr>
-            <tr>
-              <td>Audience</td>
-              <td>Technical</td>
-              <td>Technical</td>
-              <td>Technical AND non-technical</td>
-            </tr>
-            <tr>
-              <td>Actionability</td>
-              <td>Recommendations</td>
-              <td>Alerts</td>
-              <td>Direct change pipeline</td>
-            </tr>
-            <tr>
-              <td>Cost</td>
-              <td>$10K-$50K per audit</td>
-              <td>$300-$2K/mo</td>
-              <td>$500-$2K/mo per app</td>
-            </tr>
-            <tr>
-              <td>Generates code</td>
-              <td>No</td>
-              <td>No</td>
-              <td>Yes -- deterministic</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="comparison-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Code Audit (Agency)</th>
+                <th>Code Analysis (SonarQube)</th>
+                <th>Terso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Output</td>
+                <td>PDF report, one-time</td>
+                <td>Code quality metrics</td>
+                <td>Living behavior map</td>
+              </tr>
+              <tr>
+                <td>Frequency</td>
+                <td>Point-in-time</td>
+                <td>Continuous (code-level)</td>
+                <td>Continuous (behavior-level)</td>
+              </tr>
+              <tr>
+                <td>Audience</td>
+                <td>Technical</td>
+                <td>Technical</td>
+                <td>Technical AND non-technical</td>
+              </tr>
+              <tr>
+                <td>Actionability</td>
+                <td>Recommendations</td>
+                <td>Alerts</td>
+                <td>Direct change pipeline</td>
+              </tr>
+              <tr>
+                <td>Cost</td>
+                <td>$10K-$50K per audit</td>
+                <td>$300-$2K/mo</td>
+                <td>$500-$2K/mo per app</td>
+              </tr>
+              <tr>
+                <td>Generates code</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Yes -- deterministic</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -2710,6 +2858,25 @@
     </footer>
 
     <script>
+      // Mobile nav toggle
+      const navToggle = document.querySelector(".nav-toggle");
+      const navLinks = document.querySelector(".nav-links");
+      if (navToggle && navLinks) {
+        navToggle.addEventListener("click", () => {
+          const isOpen = navLinks.classList.toggle("open");
+          navToggle.classList.toggle("active");
+          navToggle.setAttribute("aria-expanded", isOpen);
+        });
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            navLinks.classList.remove("open");
+            navToggle.classList.remove("active");
+            navToggle.setAttribute("aria-expanded", "false");
+          });
+        });
+      }
+
       // Scroll reveal
       const reveals = document.querySelectorAll(".reveal");
       const observer = new IntersectionObserver(
