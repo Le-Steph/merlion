@@ -266,250 +266,164 @@
         letter-spacing: -0.2px;
       }
 
-      /* ---- Product Mockup ---- */
-      .product-mockup {
+      /* ---- Hero Stage (Signal Lock Animation) ---- */
+      .hero-stage {
+        position: relative;
         max-width: 900px;
         margin: 0 auto;
+        width: 100%;
+        height: 420px;
         background: var(--bg-elevated);
         border: 1px solid var(--border);
         border-radius: 16px;
         overflow: hidden;
-        position: relative;
       }
 
-      .product-mockup::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 16px;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      .hero-stage .graph-node {
+        transition: opacity 0.4s ease;
+      }
+
+      .hero-stage .graph-edge {
+        transition: opacity 0.4s ease;
+      }
+
+      .hero-stage .node-label {
+        font-family: var(--sans);
+        font-size: 12px;
+        fill: var(--text);
+        text-anchor: middle;
+        dominant-baseline: central;
         pointer-events: none;
       }
 
-      .mockup-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 20px;
-        background: var(--bg-card);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .mockup-dots {
-        display: flex;
-        gap: 6px;
-      }
-
-      .mockup-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-      }
-
-      .mockup-dot.r {
-        background: #ef4444;
-      }
-      .mockup-dot.y {
-        background: #eab308;
-      }
-      .mockup-dot.g {
-        background: #22c55e;
-      }
-
-      .mockup-title {
+      .hero-stage .node-badge {
         font-family: var(--mono);
-        font-size: 12px;
-        color: var(--text-tertiary);
-      }
-
-      .mockup-body {
-        display: grid;
-        grid-template-columns: 240px 1fr 260px;
-        min-height: 380px;
-      }
-
-      /* Chat panel mockup */
-      .mock-chat {
-        border-right: 1px solid var(--border);
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .mock-chat-label {
-        font-size: 11px;
+        font-size: 8px;
         font-weight: 600;
-        color: var(--text-tertiary);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-      }
-
-      .mock-msg {
-        padding: 10px 12px;
-        border-radius: 8px;
-        font-size: 12px;
-        line-height: 1.5;
-      }
-
-      .mock-msg-user {
-        background: var(--accent-glow);
-        color: var(--text);
-        align-self: flex-end;
-        border: 1px solid rgba(99, 102, 241, 0.2);
-      }
-
-      .mock-msg-ai {
-        background: var(--bg-card);
-        color: var(--text-secondary);
-        border: 1px solid var(--border-subtle);
-      }
-
-      .mock-input {
-        margin-top: auto;
-        padding: 8px 12px;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        font-size: 12px;
-        color: var(--text-tertiary);
-        font-family: var(--sans);
-      }
-
-      /* Graph canvas mockup */
-      .mock-canvas {
-        position: relative;
-        padding: 24px;
-        overflow: hidden;
-        background: radial-gradient(
-            circle at 1px 1px,
-            var(--border-subtle) 1px,
-            transparent 0
-          )
-          0 0 / 24px 24px;
-      }
-
-      .mock-node {
-        position: absolute;
-        padding: 10px 16px;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 600;
-        white-space: nowrap;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        z-index: 2;
-      }
-
-      .mock-node-state {
-        background: var(--accent-glow-strong);
-        border: 1px solid var(--accent);
-        color: var(--accent-light);
-      }
-
-      .mock-node-condition {
-        background: var(--amber-dim);
-        border: 1px solid rgba(251, 191, 36, 0.4);
-        color: var(--amber);
-        border-radius: 20px;
-      }
-
-      .mock-node-action {
-        background: var(--green-dim);
-        border: 1px solid rgba(52, 211, 153, 0.4);
-        color: var(--green);
-      }
-
-      .mock-node-data {
-        background: var(--purple-dim);
-        border: 1px solid rgba(192, 132, 252, 0.4);
-        color: var(--purple);
-      }
-
-      .mock-node .node-kind {
-        font-size: 9px;
-        font-weight: 500;
+        text-anchor: middle;
+        dominant-baseline: central;
+        pointer-events: none;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        opacity: 0.7;
-        display: block;
-        margin-bottom: 2px;
       }
 
-      /* SVG edges */
-      .mock-canvas svg {
+      .hero-stage .terminal-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      .mock-canvas svg line {
-        stroke: var(--text-tertiary);
-        stroke-width: 1.5;
-        opacity: 0.4;
-      }
-
-      /* Preview panel mockup */
-      .mock-preview {
-        border-left: 1px solid var(--border);
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .mock-preview-label {
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--text-tertiary);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-      }
-
-      .mock-code-line {
+        top: 16px;
+        left: 16px;
         font-family: var(--mono);
         font-size: 11px;
-        line-height: 1.7;
         color: var(--text-tertiary);
+        z-index: 10;
+        pointer-events: none;
+        line-height: 1.7;
       }
 
-      .mock-code-line .kw {
-        color: var(--purple);
+      .hero-stage .term-line {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
       }
-      .mock-code-line .fn {
-        color: var(--amber);
+
+      .hero-stage .term-line.visible {
+        opacity: 1;
       }
-      .mock-code-line .ty {
+
+      .hero-stage .term-accent {
         color: var(--accent-light);
       }
-      .mock-code-line .st {
+
+      .hero-stage .term-green {
         color: var(--green);
       }
 
-      .mock-tab-bar {
-        display: flex;
-        gap: 0;
-        margin-bottom: 8px;
+      .hero-stage .term-amber {
+        color: var(--amber);
       }
 
-      .mock-tab {
-        padding: 4px 12px;
-        font-size: 11px;
-        font-family: var(--mono);
-        color: var(--text-tertiary);
-        border-bottom: 2px solid transparent;
+      .hero-stage .progress-bar {
+        position: absolute;
+        top: 50px;
+        left: 16px;
+        width: 200px;
+        height: 2px;
+        background: var(--border);
+        border-radius: 1px;
+        opacity: 0;
+        z-index: 10;
       }
 
-      .mock-tab.active {
+      .hero-stage .progress-bar.visible {
+        opacity: 1;
+      }
+
+      .hero-stage .progress-bar-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--accent-light);
+        border-radius: 1px;
+        transition: width 1.5s linear;
+      }
+
+      .hero-stage .scan-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--accent-light);
+        box-shadow:
+          0 0 12px var(--accent),
+          0 0 30px var(--accent-glow);
+        opacity: 0;
+        z-index: 5;
+        pointer-events: none;
+      }
+
+      .hero-stage .chat-input {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        transform: translateY(10px);
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-size: 13px;
+        font-family: var(--sans);
+        color: var(--text);
+        opacity: 0;
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+        white-space: nowrap;
+        z-index: 10;
+      }
+
+      .hero-stage .chat-input.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero-stage .chat-input .prompt-caret {
         color: var(--accent-light);
-        border-bottom-color: var(--accent);
+        font-family: var(--mono);
+        margin-right: 8px;
+      }
+
+      .hero-stage .chat-input .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 14px;
+        background: var(--accent-light);
+        vertical-align: middle;
+        margin-left: 2px;
+        animation: heroBlinkCursor 0.8s step-end infinite;
+      }
+
+      @keyframes heroBlinkCursor {
+        50% {
+          opacity: 0;
+        }
       }
 
       /* ---- Metrics Bar ---- */
@@ -1733,7 +1647,7 @@
         overflow: hidden;
       }
 
-      .mock-canvas {
+      .hero-stage {
         overflow: hidden;
       }
 
@@ -1745,18 +1659,8 @@
 
       /* ---- Tablet (769px - 1024px) ---- */
       @media (max-width: 1024px) {
-        .mockup-body {
-          grid-template-columns: 1fr;
-          min-height: auto;
-        }
-
-        .mock-chat,
-        .mock-preview {
-          display: none;
-        }
-
-        .mock-canvas {
-          min-height: 300px;
+        .hero-stage {
+          height: 340px;
         }
 
         .pipeline-steps {
@@ -1922,6 +1826,46 @@
           font-size: 13px;
         }
       }
+
+      /* ---- Before/After Slide Animation ---- */
+      .ba-animate-ready .ba-after {
+        opacity: 0;
+        transform: translateX(40px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .ba-animate-ready.ba-animated .ba-after {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* ---- Feature Card Hover Micro-Animations ---- */
+      .diff-card .icon-wrap {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .diff-card:hover .icon-wrap {
+        transform: scale(1.15) rotate(5deg);
+      }
+
+      /* ---- Respect Reduced Motion ---- */
+      @media (prefers-reduced-motion: reduce) {
+        .ba-animate-ready .ba-after {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+
+        .diff-card .icon-wrap {
+          transition: none !important;
+        }
+
+        .diff-card:hover .icon-wrap {
+          transform: none !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1961,8 +1905,8 @@
           <span class="gradient">Take back control</span><br />of your software.
         </h1>
         <p class="hero-sub">
-          Stop negotiating feature requests. See every behavior, direct every
-          change, ship in hours instead of months.
+          Stop negotiating feature requests. See every behavior at any depth,
+          direct changes in plain English, ship in hours instead of months.
         </p>
         <div class="hero-actions">
           <a
@@ -1976,204 +1920,32 @@
           From black-box codebase to living behavior map in under 2 hours.
         </p>
 
-        <!-- Product Mockup -->
-        <div class="product-mockup">
-          <div class="mockup-header">
-            <div class="mockup-dots">
-              <span class="mockup-dot r"></span>
-              <span class="mockup-dot y"></span>
-              <span class="mockup-dot g"></span>
+        <!-- Signal Lock Hero Animation -->
+        <div class="hero-stage" id="hero-stage">
+          <svg
+            id="hero-svg"
+            width="100%"
+            height="100%"
+            style="position: absolute; inset: 0"
+          ></svg>
+          <div class="scan-line" id="hero-scanline"></div>
+          <div class="terminal-overlay" id="hero-terminal">
+            <div class="term-line" id="hero-term-cmd">
+              $ terso analyze
+              <span class="term-accent">github.com/your-codebase</span>
             </div>
-            <span class="mockup-title"
-              >terso -- E-Commerce App &middot; BehaviorScheme v3</span
-            >
+            <div class="term-line" id="hero-term-stats"></div>
+            <div class="term-line" id="hero-term-focus"></div>
+            <div class="term-line" id="hero-term-input"></div>
+            <div class="term-line" id="hero-term-result"></div>
           </div>
-          <div class="mockup-body">
-            <!-- Chat Panel -->
-            <div class="mock-chat">
-              <div class="mock-chat-label">Chat</div>
-              <div class="mock-msg mock-msg-user">
-                Add a loyalty points system to the checkout flow
-              </div>
-              <div class="mock-msg mock-msg-ai">
-                I'll add a LoyaltyPoints entity and update the Checkout state
-                with a points redemption section. Creating 2 entities, 1 state
-                update, and 3 edges...
-              </div>
-              <div class="mock-msg mock-msg-ai" style="font-size: 11px">
-                <span style="color: var(--green)">+</span> Entity: LoyaltyPoints
-                (4 fields)<br />
-                <span style="color: var(--green)">+</span> Node: Points
-                Redemption<br />
-                <span style="color: var(--accent-light)">~</span> Updated:
-                Checkout screen
-              </div>
-              <div class="mock-input">Describe what you want to change...</div>
-            </div>
-
-            <!-- Graph Canvas -->
-            <div class="mock-canvas">
-              <svg>
-                <!-- Login -> Dashboard -->
-                <line x1="100" y1="52" x2="230" y2="52" />
-                <!-- Dashboard -> Product List -->
-                <line x1="340" y1="52" x2="420" y2="105" />
-                <!-- Dashboard -> Auth Check -->
-                <line x1="340" y1="52" x2="340" y2="130" />
-                <!-- Product List -> Cart -->
-                <line x1="520" y1="105" x2="420" y2="190" />
-                <!-- Cart -> Checkout -->
-                <line x1="480" y1="190" x2="480" y2="260" />
-                <!-- Auth Check -> Checkout -->
-                <line x1="380" y1="152" x2="440" y2="260" />
-                <!-- Checkout -> Confirmation -->
-                <line x1="520" y1="282" x2="420" y2="330" />
-                <!-- User entity -->
-                <line x1="90" y1="175" x2="170" y2="130" />
-                <!-- Order entity -->
-                <line x1="140" y1="290" x2="280" y2="282" />
-              </svg>
-
-              <!-- State Nodes -->
-              <div
-                class="mock-node mock-node-state"
-                style="left: 30px; top: 36px"
-              >
-                <span class="node-kind">state</span>
-                Login
-              </div>
-              <div
-                class="mock-node mock-node-state"
-                style="left: 230px; top: 28px"
-              >
-                <span class="node-kind">state</span>
-                Dashboard
-              </div>
-              <div
-                class="mock-node mock-node-state"
-                style="left: 420px; top: 82px"
-              >
-                <span class="node-kind">state</span>
-                Product List
-              </div>
-              <div
-                class="mock-node mock-node-state"
-                style="left: 370px; top: 172px"
-              >
-                <span class="node-kind">state</span>
-                Cart
-              </div>
-              <div
-                class="mock-node mock-node-state"
-                style="
-                  left: 410px;
-                  top: 252px;
-                  border-color: var(--green);
-                  box-shadow: 0 0 12px var(--green-dim);
-                "
-              >
-                <span class="node-kind">state</span>
-                Checkout
-              </div>
-              <div
-                class="mock-node mock-node-state"
-                style="left: 340px; top: 322px"
-              >
-                <span class="node-kind">state</span>
-                Confirmation
-              </div>
-
-              <!-- Condition -->
-              <div
-                class="mock-node mock-node-condition"
-                style="left: 280px; top: 124px"
-              >
-                <span class="node-kind">condition</span>
-                Auth?
-              </div>
-
-              <!-- Data Nodes -->
-              <div
-                class="mock-node mock-node-data"
-                style="left: 24px; top: 152px"
-              >
-                <span class="node-kind">entity</span>
-                User
-              </div>
-              <div
-                class="mock-node mock-node-data"
-                style="left: 60px; top: 262px"
-              >
-                <span class="node-kind">entity</span>
-                Order
-              </div>
-
-              <!-- New node (highlighted) -->
-              <div
-                class="mock-node mock-node-action"
-                style="left: 170px; top: 222px"
-              >
-                <span class="node-kind">new</span>
-                Points Redemption
-              </div>
-            </div>
-
-            <!-- Preview Panel -->
-            <div class="mock-preview">
-              <div class="mock-preview-label">Compiled Output</div>
-              <div class="mock-tab-bar">
-                <span class="mock-tab active">React</span>
-                <span class="mock-tab">API</span>
-                <span class="mock-tab">Tests</span>
-              </div>
-              <div class="mock-code-line">
-                <span class="kw">export function</span>
-                <span class="fn">Checkout</span>() {
-              </div>
-              <div class="mock-code-line">
-                &nbsp;&nbsp;<span class="kw">const</span> [points] =
-                <span class="fn">usePoints</span>()
-              </div>
-              <div class="mock-code-line">
-                &nbsp;&nbsp;<span class="kw">const</span> cart =
-                <span class="fn">useCart</span>()
-              </div>
-              <div class="mock-code-line">&nbsp;</div>
-              <div class="mock-code-line">
-                &nbsp;&nbsp;<span class="kw">return</span> (
-              </div>
-              <div class="mock-code-line">
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="ty">Card</span>&gt;
-              </div>
-              <div class="mock-code-line">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="ty"
-                  >OrderSummary</span
-                >
-                /&gt;
-              </div>
-              <div class="mock-code-line" style="color: var(--green)">
-                + &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="ty"
-                  >PointsRedemption</span
-                >
-              </div>
-              <div class="mock-code-line" style="color: var(--green)">
-                + &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;available={points}
-              </div>
-              <div class="mock-code-line" style="color: var(--green)">
-                + &nbsp;&nbsp;&nbsp;&nbsp;/&gt;
-              </div>
-              <div class="mock-code-line">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="ty"
-                  >PaymentForm</span
-                >
-                /&gt;
-              </div>
-              <div class="mock-code-line">
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="ty">Card</span>&gt;
-              </div>
-              <div class="mock-code-line">&nbsp;&nbsp;)</div>
-              <div class="mock-code-line">}</div>
-            </div>
+          <div class="progress-bar" id="hero-pbar">
+            <div class="progress-bar-fill" id="hero-pbar-fill"></div>
+          </div>
+          <div class="chat-input" id="hero-chat-input">
+            <span class="prompt-caret">&gt;</span>
+            <span id="hero-typed-text"></span>
+            <span class="cursor"></span>
           </div>
         </div>
       </div>
@@ -2184,15 +1956,21 @@
       <div class="container">
         <div class="metrics-grid">
           <div class="metric-item">
-            <div class="metric-value"><span class="accent">5</span></div>
+            <div class="metric-value">
+              <span class="accent" data-count="5">5</span>
+            </div>
             <div class="metric-label">Node types in the IR</div>
           </div>
           <div class="metric-item">
-            <div class="metric-value"><span class="accent">11</span></div>
+            <div class="metric-value">
+              <span class="accent" data-count="11">11</span>
+            </div>
             <div class="metric-label">AI tool definitions</div>
           </div>
           <div class="metric-item">
-            <div class="metric-value"><span class="accent">4</span></div>
+            <div class="metric-value">
+              <span class="accent" data-count="4">4</span>
+            </div>
             <div class="metric-label">Compilation targets</div>
           </div>
           <div class="metric-item">
@@ -2200,7 +1978,9 @@
             <div class="metric-label">Model-agnostic IR</div>
           </div>
           <div class="metric-item">
-            <div class="metric-value"><span class="accent">6</span></div>
+            <div class="metric-value">
+              <span class="accent" data-count="6">6</span>
+            </div>
             <div class="metric-label">Languages supported</div>
             <div class="metric-langs">
               <span class="lang-icon">TS</span>
@@ -2275,7 +2055,8 @@
           <p class="section-sub centered" style="margin-bottom: 48px">
             Your software already has behavior -- screens, workflows, business
             rules, data models. It's just invisible, buried in thousands of
-            lines of code. Terso surfaces it.
+            lines of code. Terso surfaces it and gives you a continuous
+            interface to understand, change, and verify it.
           </p>
 
           <table class="era-table">
@@ -2318,10 +2099,12 @@
       <div class="container">
         <div class="section-header-centered">
           <p class="section-label">How It Works</p>
-          <h2>Import. Map. Accelerate.</h2>
+          <h2>Understand. Direct. Verify. Iterate.</h2>
           <p class="section-sub centered">
-            Point Terso at your codebase. Get a living behavior map. Make
-            changes in plain English. Code recompiles deterministically.
+            Point Terso at your codebase. Get a living behavior map at every
+            level of detail -- from system architecture down to field-level
+            logic. Direct changes in plain English. Code recompiles
+            deterministically.
           </p>
         </div>
 
@@ -2441,10 +2224,10 @@
           <div class="ba-card ba-before">
             <div class="ba-label">Without Terso</div>
             <ul>
-              <li>Code audit: $10K-$50K, static PDF</li>
+              <li>One-time assessment: $10K-$50K, stale on delivery</li>
               <li>Outdated the day it's delivered</li>
               <li>Only readable by developers</li>
-              <li>Changes still require manual dev</li>
+              <li>Every change requires a developer in the loop</li>
               <li>No traceability from intent to code</li>
             </ul>
           </div>
@@ -2453,7 +2236,7 @@
             <div class="ba-label">With Terso</div>
             <ul>
               <li>Living behavior map, always current</li>
-              <li>Updates as your software evolves</li>
+              <li>Navigate from system-wide view to individual field logic</li>
               <li>Readable by a CEO</li>
               <li>Deterministic code compilation</li>
               <li>Every change traceable end to end</li>
@@ -2502,9 +2285,9 @@
             </div>
             <h3>Living Behavior Map</h3>
             <p>
-              Not a static diagram or a one-time audit. The BehaviorScheme
-              evolves with your software. Always current, always accurate,
-              always readable.
+              Not a static diagram or a one-time report. The BehaviorScheme
+              evolves with your software. Ask questions, direct changes, verify
+              results -- all through natural language.
             </p>
           </div>
           <div class="diff-card">
@@ -2574,11 +2357,11 @@
       <div class="container">
         <div class="section-header-centered">
           <p class="section-label">Positioning</p>
-          <h2>Beyond code audits.<br />Beyond static analysis.</h2>
+          <h2>Beyond one-time reports.<br />Beyond static analysis.</h2>
           <p class="section-sub centered">
             Agencies give you a PDF. Code analysis tools give you metrics. Terso
-            gives you a living behavior map and a pipeline to evolve your
-            software.
+            gives you a living behavior map and a continuous interface to evolve
+            your software.
           </p>
         </div>
 
@@ -2587,7 +2370,7 @@
             <thead>
               <tr>
                 <th>Dimension</th>
-                <th>Code Audit (Agency)</th>
+                <th>Agency Assessment</th>
                 <th>Code Analysis (SonarQube)</th>
                 <th>Terso</th>
               </tr>
@@ -2595,7 +2378,7 @@
             <tbody>
               <tr>
                 <td>Output</td>
-                <td>PDF report, one-time</td>
+                <td>PDF report, stale on delivery</td>
                 <td>Code quality metrics</td>
                 <td>Living behavior map</td>
               </tr>
@@ -2615,11 +2398,11 @@
                 <td>Actionability</td>
                 <td>Recommendations</td>
                 <td>Alerts</td>
-                <td>Direct change pipeline</td>
+                <td>Understand, direct, and verify changes</td>
               </tr>
               <tr>
                 <td>Cost</td>
-                <td>$10K-$50K per audit</td>
+                <td>$10K-$50K per engagement</td>
                 <td>$300-$2K/mo</td>
                 <td>$500-$2K/mo per app</td>
               </tr>
@@ -2642,9 +2425,9 @@
           <p class="section-label">The Founder</p>
           <p class="founder-quote">
             "I spent my career being the bridge between business people and
-            software. I've done manual code audits for SMBs -- reading someone
-            else's codebase, documenting what it does, explaining it to the
-            business owner. That process costs $10K-$50K and produces a PDF
+            software. I've done manual codebase assessments for SMBs -- reading
+            someone else's codebase, documenting what it does, explaining it to
+            the business owner. That process costs $10K-$50K and produces a PDF
             that's outdated the day it's delivered."
           </p>
           <p class="founder-quote">
@@ -2815,8 +2598,8 @@
               >terso<span style="color: var(--accent-light)">.</span></a
             >
             <p>
-              Software intelligence for SMBs. Import your codebase. See every
-              behavior. Accelerate your roadmap.
+              Software intelligence for SMBs. See every behavior. Direct every
+              change. Accelerate your roadmap.
             </p>
           </div>
           <div class="footer-col">
@@ -2908,6 +2691,743 @@
         );
         pipelineObserver.observe(pipeline);
       }
+
+      // ---- Signal Lock Hero Animation ----
+      (function () {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return;
+
+        var HERO_NODES = [
+          { id: "login", label: "Login", type: "state", x: 220, y: 120 },
+          { id: "auth", label: "Auth?", type: "condition", x: 380, y: 75 },
+          { id: "dash", label: "Dashboard", type: "state", x: 540, y: 120 },
+          { id: "products", label: "Products", type: "state", x: 380, y: 220 },
+          { id: "cart", label: "Cart", type: "state", x: 590, y: 260 },
+          {
+            id: "checkout",
+            label: "Checkout",
+            type: "state",
+            x: 750,
+            y: 200,
+          },
+          { id: "user", label: "User", type: "entity", x: 220, y: 280 },
+          { id: "order", label: "Order", type: "entity", x: 750, y: 330 },
+        ];
+
+        var HERO_NEW_NODE = {
+          id: "points",
+          label: "Points",
+          type: "action",
+          x: 590,
+          y: 360,
+        };
+
+        var HERO_EDGES = [
+          ["login", "auth"],
+          ["auth", "dash"],
+          ["dash", "products"],
+          ["products", "cart"],
+          ["cart", "checkout"],
+          ["login", "user"],
+          ["checkout", "order"],
+        ];
+
+        var HERO_NEW_EDGE = ["points", "checkout"];
+        var HERO_FOCUS_IDS = ["cart", "checkout", "order"];
+
+        var HERO_TYPE_COLORS = {
+          state: {
+            fill: "#6366f1",
+            glow: "rgba(99,102,241,0.18)",
+            badge: "#818cf8",
+            stroke: "rgba(99,102,241,0.6)",
+          },
+          condition: {
+            fill: "#fbbf24",
+            glow: "rgba(251,191,36,0.18)",
+            badge: "#fbbf24",
+            stroke: "rgba(251,191,36,0.6)",
+          },
+          action: {
+            fill: "#34d399",
+            glow: "rgba(52,211,153,0.18)",
+            badge: "#34d399",
+            stroke: "rgba(52,211,153,0.6)",
+          },
+          entity: {
+            fill: "#c084fc",
+            glow: "rgba(192,132,252,0.18)",
+            badge: "#c084fc",
+            stroke: "rgba(192,132,252,0.6)",
+          },
+        };
+
+        var BOX_W = 100,
+          BOX_H = 44,
+          BOX_RX = 6,
+          DIAMOND_W = 90,
+          DIAMOND_H = 50;
+
+        function heroNodeById(id) {
+          if (id === "points") return HERO_NEW_NODE;
+          return HERO_NODES.find(function (n) {
+            return n.id === id;
+          });
+        }
+
+        function heroSvgEl(tag, attrs) {
+          var el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+          if (attrs)
+            Object.keys(attrs).forEach(function (k) {
+              el.setAttribute(k, attrs[k]);
+            });
+          return el;
+        }
+
+        function heroEaseOut(t) {
+          return 1 - Math.pow(1 - t, 3);
+        }
+
+        function rectEdgePoint(cx, cy, hw, hh, tx, ty) {
+          var dx = tx - cx,
+            dy = ty - cy;
+          if (dx === 0 && dy === 0) return { x: cx, y: cy };
+          var scale =
+            Math.abs(dx) * hh > Math.abs(dy) * hw
+              ? hw / Math.abs(dx)
+              : hh / Math.abs(dy);
+          return { x: cx + dx * scale, y: cy + dy * scale };
+        }
+
+        function diamondEdgePoint(cx, cy, hw, hh, tx, ty) {
+          var dx = tx - cx,
+            dy = ty - cy;
+          if (dx === 0 && dy === 0) return { x: cx, y: cy };
+          var scale = 1 / (Math.abs(dx) / hw + Math.abs(dy) / hh);
+          return { x: cx + dx * scale, y: cy + dy * scale };
+        }
+
+        function getEdgePoint(node, tx, ty) {
+          if (node.type === "condition")
+            return diamondEdgePoint(
+              node.x,
+              node.y,
+              DIAMOND_W / 2,
+              DIAMOND_H / 2,
+              tx,
+              ty,
+            );
+          return rectEdgePoint(node.x, node.y, BOX_W / 2, BOX_H / 2, tx, ty);
+        }
+
+        function buildHeroFlowGraph(svg, opts) {
+          var dimNonFocus = opts && opts.dimNonFocus;
+          var showNewNode = opts && opts.showNewNode;
+
+          var defs = heroSvgEl("defs");
+          Object.keys(HERO_TYPE_COLORS).forEach(function (type) {
+            var tc = HERO_TYPE_COLORS[type];
+            var marker = heroSvgEl("marker", {
+              id: "harrow-" + type,
+              viewBox: "0 0 10 8",
+              refX: "9",
+              refY: "4",
+              markerWidth: "6",
+              markerHeight: "6",
+              orient: "auto-start-reverse",
+            });
+            marker.appendChild(
+              heroSvgEl("path", { d: "M 0 0 L 10 4 L 0 8 z", fill: tc.stroke }),
+            );
+            defs.appendChild(marker);
+          });
+          svg.appendChild(defs);
+
+          // Edges
+          HERO_EDGES.forEach(function (edge) {
+            var from = heroNodeById(edge[0]),
+              to = heroNodeById(edge[1]);
+            var tc = HERO_TYPE_COLORS[from.type];
+            var fp = getEdgePoint(from, to.x, to.y),
+              tp = getEdgePoint(to, from.x, from.y);
+            var line = heroSvgEl("line", {
+              x1: fp.x,
+              y1: fp.y,
+              x2: tp.x,
+              y2: tp.y,
+              stroke: tc.stroke,
+              "stroke-width": "1.5",
+              "marker-end": "url(#harrow-" + from.type + ")",
+              class: "graph-edge",
+            });
+            if (dimNonFocus) {
+              var isFocus =
+                HERO_FOCUS_IDS.indexOf(edge[0]) >= 0 ||
+                HERO_FOCUS_IDS.indexOf(edge[1]) >= 0;
+              line.style.opacity = isFocus ? "0.7" : "0.15";
+            }
+            svg.appendChild(line);
+          });
+
+          // Nodes
+          HERO_NODES.forEach(function (node) {
+            var tc = HERO_TYPE_COLORS[node.type];
+            var g = heroSvgEl("g", { class: "graph-node" });
+            g.dataset.nodeId = node.id;
+
+            if (node.type === "condition") {
+              var hw = DIAMOND_W / 2,
+                hh = DIAMOND_H / 2;
+              var pts = [
+                node.x + "," + (node.y - hh),
+                node.x + hw + "," + node.y,
+                node.x + "," + (node.y + hh),
+                node.x - hw + "," + node.y,
+              ].join(" ");
+              var glowPts = [
+                node.x + "," + (node.y - hh - 3),
+                node.x + hw + 3 + "," + node.y,
+                node.x + "," + (node.y + hh + 3),
+                node.x - hw - 3 + "," + node.y,
+              ].join(" ");
+              g.appendChild(
+                heroSvgEl("polygon", {
+                  points: glowPts,
+                  fill: tc.glow,
+                  stroke: "none",
+                }),
+              );
+              g.appendChild(
+                heroSvgEl("polygon", {
+                  points: pts,
+                  fill: "var(--bg-card)",
+                  stroke: tc.stroke,
+                  "stroke-width": "1",
+                }),
+              );
+            } else {
+              var rx = node.x - BOX_W / 2,
+                ry = node.y - BOX_H / 2;
+              g.appendChild(
+                heroSvgEl("rect", {
+                  x: rx - 2,
+                  y: ry - 2,
+                  width: BOX_W + 4,
+                  height: BOX_H + 4,
+                  rx: BOX_RX + 1,
+                  fill: tc.glow,
+                }),
+              );
+              g.appendChild(
+                heroSvgEl("rect", {
+                  x: rx,
+                  y: ry,
+                  width: BOX_W,
+                  height: BOX_H,
+                  rx: BOX_RX,
+                  fill: "var(--bg-card)",
+                  stroke: tc.stroke,
+                  "stroke-width": "1",
+                }),
+              );
+            }
+
+            var badge = heroSvgEl("text", {
+              x: node.x,
+              y: node.y - 8,
+              class: "node-badge",
+              fill: tc.badge,
+            });
+            badge.textContent = node.type.toUpperCase();
+            g.appendChild(badge);
+
+            var label = heroSvgEl("text", {
+              x: node.x,
+              y: node.y + (node.type === "condition" ? 8 : 9),
+              class: "node-label",
+            });
+            label.textContent = node.label;
+            g.appendChild(label);
+
+            if (dimNonFocus)
+              g.style.opacity =
+                HERO_FOCUS_IDS.indexOf(node.id) >= 0 ? "1" : "0.3";
+            svg.appendChild(g);
+          });
+
+          // New node + edge (hidden)
+          if (showNewNode) {
+            var nn = HERO_NEW_NODE,
+              ntc = HERO_TYPE_COLORS[nn.type];
+            var target = heroNodeById(HERO_NEW_EDGE[1]);
+            var fp2 = getEdgePoint(nn, target.x, target.y),
+              tp2 = getEdgePoint(target, nn.x, nn.y);
+            var newEdge = heroSvgEl("line", {
+              x1: fp2.x,
+              y1: fp2.y,
+              x2: tp2.x,
+              y2: tp2.y,
+              stroke: ntc.stroke,
+              "stroke-width": "1.5",
+              "marker-end": "url(#harrow-" + nn.type + ")",
+              class: "graph-edge new-edge",
+            });
+            newEdge.style.opacity = "0";
+            svg.appendChild(newEdge);
+
+            var ng = heroSvgEl("g", { class: "graph-node new-node" });
+            ng.style.opacity = "0";
+            ng.dataset.nodeId = nn.id;
+            var nrx = nn.x - BOX_W / 2,
+              nry = nn.y - BOX_H / 2;
+            ng.appendChild(
+              heroSvgEl("rect", {
+                x: nrx - 2,
+                y: nry - 2,
+                width: BOX_W + 4,
+                height: BOX_H + 4,
+                rx: BOX_RX + 1,
+                fill: ntc.glow,
+              }),
+            );
+            ng.appendChild(
+              heroSvgEl("rect", {
+                x: nrx,
+                y: nry,
+                width: BOX_W,
+                height: BOX_H,
+                rx: BOX_RX,
+                fill: "var(--bg-card)",
+                stroke: ntc.stroke,
+                "stroke-width": "1",
+              }),
+            );
+            var nb = heroSvgEl("text", {
+              x: nn.x,
+              y: nn.y - 8,
+              class: "node-badge",
+              fill: ntc.badge,
+            });
+            nb.textContent = "ACTION";
+            ng.appendChild(nb);
+            var nl = heroSvgEl("text", {
+              x: nn.x,
+              y: nn.y + 9,
+              class: "node-label",
+            });
+            nl.textContent = nn.label;
+            ng.appendChild(nl);
+            svg.appendChild(ng);
+          }
+        }
+
+        // Animation state
+        var heroRaf = null;
+        var heroTimers = [];
+
+        function runHeroAnimation() {
+          cancelHeroAnimation();
+          heroTimers = [];
+          var ht = function (fn, ms) {
+            var id = setTimeout(fn, ms);
+            heroTimers.push(id);
+            return id;
+          };
+
+          var svg = document.getElementById("hero-svg");
+          var stage = document.getElementById("hero-stage");
+          var scanline = document.getElementById("hero-scanline");
+          var termCmd = document.getElementById("hero-term-cmd");
+          var termStats = document.getElementById("hero-term-stats");
+          var termFocus = document.getElementById("hero-term-focus");
+          var termInput = document.getElementById("hero-term-input");
+          var termResult = document.getElementById("hero-term-result");
+          var pbar = document.getElementById("hero-pbar");
+          var pbarFill = document.getElementById("hero-pbar-fill");
+          var chatInput = document.getElementById("hero-chat-input");
+          var typedText = document.getElementById("hero-typed-text");
+
+          if (!svg || !stage) return;
+
+          // Reset
+          svg.innerHTML = "";
+          scanline.style.opacity = "0";
+          scanline.style.left = "0px";
+          scanline.style.transition = "none";
+          chatInput.classList.remove("visible");
+          typedText.textContent = "";
+          [termCmd, termStats, termFocus, termInput, termResult].forEach(
+            function (el) {
+              el.classList.remove("visible");
+              if (el.id === "hero-term-cmd") {
+                el.innerHTML =
+                  '$ terso analyze <span class="term-accent">github.com/your-codebase</span>';
+              } else {
+                el.innerHTML = "";
+              }
+            },
+          );
+          pbar.classList.remove("visible");
+          pbarFill.style.transition = "none";
+          pbarFill.style.width = "0%";
+
+          var W = stage.clientWidth;
+          var H = stage.clientHeight;
+
+          // Step 1: Jittering grey dots
+          var NUM_DOTS = 50;
+          var dots = [];
+          var dotEls = [];
+
+          for (var i = 0; i < NUM_DOTS; i++) {
+            var targetNode = HERO_NODES[i % HERO_NODES.length];
+            var x = 60 + Math.random() * (W - 120);
+            var y = 60 + Math.random() * (H - 120);
+            dots.push({
+              x: x,
+              y: y,
+              baseX: x,
+              baseY: y,
+              targetX: targetNode.x,
+              targetY: targetNode.y,
+              nodeIndex: i % HERO_NODES.length,
+              jitter: 1 + Math.random() * 2,
+            });
+          }
+
+          var flickerLines = [];
+          for (var fi = 0; fi < 30; fi++) {
+            var a = Math.floor(Math.random() * NUM_DOTS);
+            var b = Math.floor(Math.random() * NUM_DOTS);
+            if (a === b) continue;
+            var line = heroSvgEl("line", {
+              x1: dots[a].x,
+              y1: dots[a].y,
+              x2: dots[b].x,
+              y2: dots[b].y,
+              stroke: "var(--text-tertiary)",
+              "stroke-width": "1",
+              opacity: "0",
+            });
+            svg.appendChild(line);
+            flickerLines.push({
+              el: line,
+              a: a,
+              b: b,
+              nextFlicker: Math.random() * 1000,
+            });
+          }
+
+          dots.forEach(function (d) {
+            var circle = heroSvgEl("circle", {
+              cx: d.x,
+              cy: d.y,
+              r: "3",
+              fill: "var(--text-tertiary)",
+              opacity: "0.5",
+            });
+            svg.appendChild(circle);
+            dotEls.push(circle);
+          });
+
+          var phase = "jitter";
+          var snapStart = 0;
+
+          function animate(now) {
+            if (phase === "jitter") {
+              dots.forEach(function (d, i) {
+                d.x = d.baseX + (Math.random() - 0.5) * d.jitter * 2;
+                d.y = d.baseY + (Math.random() - 0.5) * d.jitter * 2;
+                dotEls[i].setAttribute("cx", d.x);
+                dotEls[i].setAttribute("cy", d.y);
+              });
+              flickerLines.forEach(function (fl) {
+                fl.el.setAttribute("x1", dots[fl.a].x);
+                fl.el.setAttribute("y1", dots[fl.a].y);
+                fl.el.setAttribute("x2", dots[fl.b].x);
+                fl.el.setAttribute("y2", dots[fl.b].y);
+                if (now > fl.nextFlicker) {
+                  fl.el.setAttribute(
+                    "opacity",
+                    Math.random() > 0.7 ? "0.25" : "0",
+                  );
+                  fl.nextFlicker = now + 200 + Math.random() * 600;
+                }
+              });
+            } else if (phase === "snap") {
+              var elapsed = now - snapStart;
+              var duration = 600;
+              var raw = Math.min(elapsed / duration, 1);
+              var overshoot =
+                raw < 0.7
+                  ? heroEaseOut(raw / 0.7) * 1.08
+                  : 1.08 - 0.08 * heroEaseOut((raw - 0.7) / 0.3);
+              var progress = Math.min(overshoot, 1.08);
+
+              dots.forEach(function (d, i) {
+                var nx =
+                  d.snapStartX +
+                  (d.targetX - d.snapStartX) * Math.min(progress, 1);
+                var ny =
+                  d.snapStartY +
+                  (d.targetY - d.snapStartY) * Math.min(progress, 1);
+                d.x = nx;
+                d.y = ny;
+                dotEls[i].setAttribute("cx", nx);
+                dotEls[i].setAttribute("cy", ny);
+              });
+
+              flickerLines.forEach(function (fl) {
+                fl.el.setAttribute("opacity", String(0.2 * (1 - raw)));
+              });
+
+              if (raw >= 1) phase = "snapped";
+            }
+
+            if (phase === "jitter" || phase === "snap") {
+              heroRaf = requestAnimationFrame(animate);
+            }
+          }
+
+          heroRaf = requestAnimationFrame(animate);
+
+          // Step 2 [1.2s]: Terminal command, progress bar, scan line
+          ht(function () {
+            termCmd.classList.add("visible");
+            pbar.classList.add("visible");
+            setTimeout(function () {
+              pbarFill.style.transition = "width 1.5s linear";
+              pbarFill.style.width = "100%";
+            }, 50);
+            scanline.style.opacity = "0.8";
+            scanline.style.left = "0px";
+            scanline.style.transition = "left 1.5s linear";
+            setTimeout(function () {
+              scanline.style.left = W + "px";
+            }, 50);
+          }, 1200);
+
+          // Step 3 [2.7s]: Snap dots, colorize, terminal stats
+          ht(function () {
+            scanline.style.opacity = "0";
+            pbar.classList.remove("visible");
+
+            dots.forEach(function (d) {
+              d.snapStartX = d.x;
+              d.snapStartY = d.y;
+            });
+            phase = "snap";
+            snapStart = performance.now();
+            heroRaf = requestAnimationFrame(animate);
+
+            setTimeout(function () {
+              var typeOrder = ["state", "condition", "entity"];
+              typeOrder.forEach(function (type, ti) {
+                setTimeout(function () {
+                  dots.forEach(function (d, i) {
+                    if (HERO_NODES[d.nodeIndex].type === type) {
+                      var tc = HERO_TYPE_COLORS[type];
+                      dotEls[i].setAttribute("fill", tc.fill);
+                      dotEls[i].setAttribute("opacity", "0.9");
+                      dotEls[i].setAttribute("r", "4");
+                    }
+                  });
+                }, ti * 200);
+              });
+
+              setTimeout(function () {
+                termStats.innerHTML =
+                  '<span class="term-green">8 behaviors, 3 entities, 12 edges</span>';
+                termStats.classList.add("visible");
+              }, 600);
+            }, 700);
+          }, 2700);
+
+          // Step 4 [4.5s]: Replace dots with flow graph
+          ht(function () {
+            svg.innerHTML = "";
+            buildHeroFlowGraph(svg, {
+              dimNonFocus: true,
+              showNewNode: true,
+            });
+
+            termFocus.innerHTML =
+              'focusing: <span class="term-amber">checkout flow</span>';
+            termFocus.classList.add("visible");
+          }, 4500);
+
+          // Step 5 [6s]: Chat input with typing
+          ht(function () {
+            chatInput.classList.add("visible");
+            var text = "Add a loyalty points system";
+            var ci = 0;
+            function typeChar() {
+              if (ci <= text.length) {
+                typedText.textContent = text.slice(0, ci);
+                ci++;
+                setTimeout(typeChar, 50);
+              }
+            }
+            typeChar();
+
+            termInput.classList.add("visible");
+            var inputText = "> add loyalty-points --connects-to checkout";
+            var cj = 0;
+            function typeCmd() {
+              if (cj <= inputText.length) {
+                termInput.innerHTML =
+                  '<span class="term-accent">' +
+                  inputText.slice(0, cj) +
+                  "</span>";
+                cj++;
+                setTimeout(typeCmd, 40);
+              }
+            }
+            typeCmd();
+          }, 6000);
+
+          // Step 6 [7.5s]: New node appears with ripple
+          ht(function () {
+            var nn = svg.querySelector(".new-node");
+            var ne = svg.querySelector(".new-edge");
+            if (nn) {
+              nn.style.transition =
+                "opacity 0.4s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
+              nn.style.transformOrigin =
+                HERO_NEW_NODE.x + "px " + HERO_NEW_NODE.y + "px";
+              nn.style.transform = "scale(0)";
+              nn.style.opacity = "1";
+              setTimeout(function () {
+                nn.style.transform = "scale(1)";
+              }, 50);
+            }
+            if (ne) {
+              ne.style.transition = "opacity 0.5s ease 0.2s";
+              ne.style.opacity = "1";
+            }
+
+            var ripple = heroSvgEl("circle", {
+              cx: HERO_NEW_NODE.x,
+              cy: HERO_NEW_NODE.y,
+              r: "8",
+              fill: "none",
+              stroke: "var(--green)",
+              "stroke-width": "2",
+              opacity: "0.8",
+            });
+            svg.appendChild(ripple);
+            var rippleR = 8;
+            function expandRipple() {
+              rippleR += 1.5;
+              var opacity = Math.max(0, 0.8 - (rippleR - 8) / 40);
+              ripple.setAttribute("r", String(rippleR));
+              ripple.setAttribute("opacity", String(opacity));
+              if (opacity > 0) requestAnimationFrame(expandRipple);
+              else ripple.remove();
+            }
+            requestAnimationFrame(expandRipple);
+
+            termResult.innerHTML =
+              '<span class="term-green">+ Points action node added</span>';
+            termResult.classList.add("visible");
+          }, 7500);
+        }
+
+        function cancelHeroAnimation() {
+          if (heroRaf) cancelAnimationFrame(heroRaf);
+          heroTimers.forEach(clearTimeout);
+          heroRaf = null;
+          heroTimers = [];
+        }
+
+        // Auto-play when hero scrolls into view
+        var heroPlayed = false;
+        var heroObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting && !heroPlayed) {
+                heroPlayed = true;
+                runHeroAnimation();
+              }
+            });
+          },
+          { threshold: 0.2 },
+        );
+        var heroStage = document.getElementById("hero-stage");
+        if (heroStage) heroObserver.observe(heroStage);
+      })();
+
+      // ---- Metrics Counter Animation ----
+      (function () {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return;
+
+        function animateCounter(el, target, duration) {
+          var start = performance.now();
+          el.textContent = "0";
+
+          function update(now) {
+            var elapsed = now - start;
+            var progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(eased * target);
+            if (progress < 1) requestAnimationFrame(update);
+          }
+
+          requestAnimationFrame(update);
+        }
+
+        var counters = document.querySelectorAll("[data-count]");
+        if (!counters.length) return;
+
+        var metricsSection = document.querySelector(".metrics-bar");
+        if (!metricsSection) return;
+
+        var metricsObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                counters.forEach(function (el) {
+                  var target = parseInt(el.dataset.count, 10);
+                  if (!isNaN(target)) animateCounter(el, target, 1500);
+                });
+                metricsObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.3 },
+        );
+
+        metricsObserver.observe(metricsSection);
+      })();
+
+      // ---- Before/After Slide Animation ----
+      (function () {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return;
+
+        var ba = document.querySelector(".before-after");
+        if (!ba) return;
+
+        ba.classList.add("ba-animate-ready");
+
+        var baObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                setTimeout(function () {
+                  ba.classList.add("ba-animated");
+                }, 300);
+                baObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.2 },
+        );
+
+        baObserver.observe(ba);
+      })();
     </script>
   </body>
 </html>
