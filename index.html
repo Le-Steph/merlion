@@ -1028,6 +1028,8 @@
         transform: translate(-50%, -50%);
         width: 600px;
         height: 400px;
+        max-width: 100%;
+        max-height: 100%;
         background: radial-gradient(
           ellipse,
           rgba(212, 160, 84, 0.06) 0%,
@@ -1379,34 +1381,34 @@
               >
                 <!-- Grid lines -->
                 <line
-                  x1="40"
+                  x1="0"
                   y1="20"
-                  x2="40"
+                  x2="0"
                   y2="210"
                   stroke="#3a3028"
                   stroke-width="1"
                 />
                 <line
-                  x1="40"
+                  x1="0"
                   y1="210"
-                  x2="380"
+                  x2="340"
                   y2="210"
                   stroke="#3a3028"
                   stroke-width="1"
                 />
                 <line
-                  x1="40"
+                  x1="0"
                   y1="70"
-                  x2="380"
+                  x2="340"
                   y2="70"
                   stroke="#3a3028"
                   stroke-width="0.5"
                   stroke-dasharray="4 4"
                 />
                 <line
-                  x1="40"
+                  x1="0"
                   y1="140"
-                  x2="380"
+                  x2="340"
                   y2="140"
                   stroke="#3a3028"
                   stroke-width="0.5"
@@ -1415,13 +1417,13 @@
 
                 <!-- Gap area fill -->
                 <path
-                  d="M40,120 C120,115 200,100 280,70 L360,40 L360,200 C280,180 200,170 120,160 L40,120 Z"
+                  d="M-20,120 C80,115 160,100 240,70 L320,40 L320,200 C240,180 160,150 80,140 L0,120 Z"
                   fill="rgba(212,160,84,0.08)"
                 />
 
                 <!-- Code volume line (rising) -->
                 <path
-                  d="M40,120 C120,115 200,100 280,70 L360,40"
+                  d="M0,120 C80,115 160,100 240,80 L320,40"
                   stroke="#d4a054"
                   stroke-width="2"
                   fill="none"
@@ -1430,7 +1432,7 @@
 
                 <!-- Understanding line (declining) -->
                 <path
-                  d="M40,120 C120,130 200,155 280,175 L360,200"
+                  d="M0,120 C80,130 160,155 240,175 L320,200"
                   stroke="#9a8a74"
                   stroke-width="2"
                   fill="none"
@@ -1440,7 +1442,7 @@
 
                 <!-- Labels -->
                 <text
-                  x="362"
+                  x="330"
                   y="38"
                   font-family="Inter, sans-serif"
                   font-size="10"
@@ -1450,7 +1452,7 @@
                   Code
                 </text>
                 <text
-                  x="362"
+                  x="330"
                   y="198"
                   font-family="Inter, sans-serif"
                   font-size="10"
@@ -1462,7 +1464,7 @@
 
                 <!-- Axis labels -->
                 <text
-                  x="210"
+                  x="170"
                   y="230"
                   font-family="Inter, sans-serif"
                   font-size="10"
@@ -1472,11 +1474,11 @@
                   Time with AI tooling
                 </text>
                 <text
-                  x="200"
+                  x="160"
                   y="120"
                   font-family="Inter, sans-serif"
                   font-size="11"
-                  fill="#3a3028"
+                  fill="white"
                   text-anchor="middle"
                   transform="rotate(-8, 200, 120)"
                 >
