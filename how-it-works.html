@@ -1,0 +1,1515 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Kigumi Works - Import. Reason. Evolve. Verify.</title>
+    <meta
+      name="description"
+      content="See how Kigumi maps your codebase into a live behavior graph. Import, reason, evolve, verify."
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital@1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================
+         RESET & VARIABLES
+         ============================================ */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #1a1410;
+        --surface: #241e18;
+        --surface-hover: #2e2620;
+        --border: #3a3028;
+        --border-subtle: #2a2218;
+        --text: #f5f0e8;
+        --text-secondary: #9a8a74;
+        --text-dim: #6a5e50;
+        --accent: #d4a054;
+        --accent-hover: #e0b060;
+        --accent-glow: rgba(212, 160, 84, 0.15);
+
+        --patina: #7ab8a0;
+        --amber: #d4a054;
+        --terracotta: #c47a6c;
+        --heartwood: #9a7bb5;
+        --blueprint: #7a9bb8;
+
+        --heading:
+          "Satoshi", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        --serif: "Lora", Georgia, serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        background-image:
+          linear-gradient(rgba(42, 34, 24, 0.3) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(42, 34, 24, 0.3) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
+        z-index: 200;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 150;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 256px 256px;
+      }
+
+      .vignette {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 140;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 50%,
+          rgba(10, 8, 4, 0.35) 100%
+        );
+      }
+
+      ::selection {
+        background: rgba(212, 160, 84, 0.25);
+        color: var(--text);
+      }
+
+      /* ============================================
+         LAYOUT
+         ============================================ */
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 32px;
+        position: relative;
+      }
+
+      section {
+        position: relative;
+      }
+
+      /* ============================================
+         TYPOGRAPHY
+         ============================================ */
+      .headline {
+        font-family: var(--heading);
+        font-weight: 700;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        color: var(--text);
+      }
+
+      .headline--hero {
+        font-size: clamp(44px, 6vw, 76px);
+      }
+
+      .headline--section {
+        font-size: clamp(32px, 4.5vw, 52px);
+      }
+
+      .headline .accent {
+        color: var(--accent);
+      }
+
+      .subtext {
+        font-size: 18px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        max-width: 540px;
+      }
+
+      .label {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+
+      /* ============================================
+         CUT LINES
+         ============================================ */
+      .cut-line {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .cut-line::before,
+      .cut-line::after {
+        content: "";
+        flex: 1;
+        height: 0;
+        border-top: 1px dashed var(--border);
+      }
+
+      .cut-line__diamond {
+        width: 8px;
+        height: 8px;
+        background: var(--border);
+        transform: rotate(45deg);
+        flex-shrink: 0;
+        margin: 0 16px;
+      }
+
+      /* ============================================
+         DIMENSION LABELS & STEP NUMBERS
+         ============================================ */
+      .dimension-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 16px;
+      }
+
+      .dimension-label::before,
+      .dimension-label::after {
+        content: "";
+        width: 24px;
+        height: 0;
+        border-top: 1px solid var(--text-dim);
+        position: relative;
+      }
+
+      .dimension-label::before {
+        border-left: 1px solid var(--text-dim);
+        padding-top: 4px;
+        margin-top: -4px;
+      }
+
+      .dimension-label::after {
+        border-right: 1px solid var(--text-dim);
+        padding-top: 4px;
+        margin-top: -4px;
+      }
+
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-dim);
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      /* ============================================
+         BUTTONS
+         ============================================ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
+        border-radius: 6px;
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          box-shadow 0.15s,
+          border-color 0.15s;
+      }
+
+      .btn--primary {
+        background: var(--accent);
+        color: var(--bg);
+      }
+
+      .btn--primary:hover {
+        background: var(--accent-hover);
+        box-shadow: 0 0 24px var(--accent-glow);
+      }
+
+      .btn--ghost {
+        background: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--border);
+      }
+
+      .btn--ghost:hover {
+        color: var(--text);
+        border-color: var(--text-secondary);
+      }
+
+      @keyframes ember-glow {
+        0%,
+        100% {
+          box-shadow:
+            0 0 16px rgba(212, 160, 84, 0.15),
+            0 0 40px rgba(212, 160, 84, 0.05);
+        }
+        50% {
+          box-shadow:
+            0 0 24px rgba(212, 160, 84, 0.3),
+            0 0 60px rgba(212, 160, 84, 0.1);
+        }
+      }
+
+      .btn--ember {
+        animation: ember-glow 3s ease-in-out infinite;
+      }
+
+      .btn--ember:hover {
+        animation: none;
+        box-shadow: 0 0 32px rgba(212, 160, 84, 0.35);
+      }
+
+      /* ============================================
+         NAV
+         ============================================ */
+      nav {
+        position: fixed;
+        top: 2px;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 18px 0;
+        background: rgba(26, 20, 16, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+        font-family: var(--heading);
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+
+      .nav-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+      }
+
+      /* ============================================
+         PAGE HEADER
+         ============================================ */
+      .page-header {
+        padding: 180px 0 80px;
+        text-align: center;
+      }
+
+      .page-header .subtext {
+        margin: 20px auto 0;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        margin-bottom: 32px;
+        transition: color 0.15s;
+      }
+
+      .back-link:hover {
+        color: var(--accent);
+      }
+
+      /* ============================================
+         PRODUCT WALKTHROUGH
+         ============================================ */
+      .product {
+        padding: 60px 0 140px;
+      }
+
+      .product-step {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+        margin-bottom: 120px;
+      }
+
+      .product-step:last-child {
+        margin-bottom: 0;
+      }
+
+      .product-step:nth-child(even) {
+        direction: rtl;
+      }
+
+      .product-step:nth-child(even) > * {
+        direction: ltr;
+      }
+
+      .product-step__text .dimension-label {
+        margin-bottom: 12px;
+      }
+
+      .product-step__text h3 {
+        font-family: var(--heading);
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+
+      .product-step__text p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      /* ============================================
+         FAKE UI PANELS
+         ============================================ */
+      .fake-ui {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .fake-ui__bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(26, 20, 16, 0.6);
+      }
+
+      .fake-ui__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .fake-ui__dot:nth-child(1) {
+        background: var(--terracotta);
+        opacity: 0.6;
+      }
+      .fake-ui__dot:nth-child(2) {
+        background: var(--amber);
+        opacity: 0.6;
+      }
+      .fake-ui__dot:nth-child(3) {
+        background: var(--patina);
+        opacity: 0.6;
+      }
+
+      .fake-ui__bar-title {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin-left: 8px;
+      }
+
+      .fake-ui__body {
+        padding: 24px;
+      }
+
+      /* ---- Import Scanner ---- */
+      .scan-progress {
+        margin-bottom: 20px;
+      }
+
+      .scan-progress__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .scan-progress__label {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .scan-progress__value {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--accent);
+      }
+
+      .scan-progress__track {
+        height: 3px;
+        background: var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .scan-progress__fill {
+        height: 100%;
+        width: 100%;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .scan-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .scan-stat {
+        background: var(--bg);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        padding: 16px;
+      }
+
+      .scan-stat__value {
+        font-family: var(--mono);
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .scan-stat__value--accent {
+        color: var(--accent);
+      }
+
+      .scan-stat__label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-top: 4px;
+      }
+
+      .scan-files {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text-secondary);
+        line-height: 2;
+      }
+
+      .scan-files .amber {
+        color: var(--accent);
+      }
+
+      /* ---- Graph Panel ---- */
+      .graph-panel__body {
+        padding: 16px;
+        min-height: 300px;
+        position: relative;
+      }
+
+      .graph-panel__body svg {
+        width: 100%;
+        height: auto;
+      }
+
+      .graph-detail {
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+        width: 200px;
+        font-size: 12px;
+      }
+
+      .graph-detail__title {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--accent);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .graph-detail__name {
+        font-weight: 600;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .graph-detail__type {
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+        font-size: 11px;
+      }
+
+      .graph-detail__gwt {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text-secondary);
+        line-height: 1.8;
+        padding: 8px;
+        background: rgba(26, 20, 16, 0.6);
+        border-radius: 6px;
+      }
+
+      .graph-detail__gwt strong {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* ---- Chat Panel ---- */
+      .chat-messages {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      .chat-msg {
+        max-width: 85%;
+        padding: 12px 16px;
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .chat-msg--user {
+        background: rgba(212, 160, 84, 0.1);
+        border: 1px solid rgba(212, 160, 84, 0.2);
+        align-self: flex-end;
+        color: var(--text);
+      }
+
+      .chat-msg--ai {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        align-self: flex-start;
+        color: var(--text-secondary);
+      }
+
+      .staging-panel {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 14px;
+      }
+
+      .staging-panel__label {
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+
+      .staging-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--border-subtle);
+        font-size: 12px;
+      }
+
+      .staging-item:last-child {
+        border-bottom: none;
+      }
+
+      .staging-actions {
+        display: flex;
+        gap: 6px;
+      }
+
+      .staging-btn {
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+      }
+
+      .staging-btn--accept {
+        background: rgba(122, 184, 160, 0.15);
+        color: var(--patina);
+        border: 1px solid rgba(122, 184, 160, 0.3);
+      }
+
+      .staging-btn--reject {
+        background: rgba(196, 122, 108, 0.15);
+        color: var(--terracotta);
+        border: 1px solid rgba(196, 122, 108, 0.3);
+      }
+
+      /* ---- Verify Panel ---- */
+      .verify-score {
+        text-align: center;
+        padding: 20px 0 16px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .verify-score__value {
+        font-family: var(--heading);
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--patina);
+        line-height: 1;
+      }
+
+      .verify-score__label {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin-top: 8px;
+        letter-spacing: 0.06em;
+      }
+
+      .verify-list {
+        list-style: none;
+      }
+
+      .verify-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 13px;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .verify-item:last-child {
+        border-bottom: none;
+      }
+
+      .verify-item__icon--pass {
+        color: var(--patina);
+        font-weight: 600;
+        font-size: 14px;
+        width: 18px;
+        text-align: center;
+      }
+
+      .verify-item__icon--fail {
+        color: var(--terracotta);
+        font-weight: 600;
+        font-size: 14px;
+        width: 18px;
+        text-align: center;
+      }
+
+      /* ============================================
+         CTA SECTION
+         ============================================ */
+      .cta-section {
+        padding: 140px 0;
+        text-align: center;
+        position: relative;
+      }
+
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 400px;
+        max-width: 100%;
+        max-height: 100%;
+        background: radial-gradient(
+          ellipse,
+          rgba(212, 160, 84, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .cta-section .headline {
+        margin-bottom: 16px;
+      }
+
+      .cta-annotation {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 16px;
+        color: var(--text-dim);
+        margin-bottom: 40px;
+      }
+
+      /* ============================================
+         FOOTER
+         ============================================ */
+      footer {
+        padding: 40px 0;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      footer .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .footer__wordmark {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+        font-family: var(--heading);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-dim);
+      }
+
+      .footer__right {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        font-size: 13px;
+        color: var(--text-dim);
+      }
+
+      .footer__right a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+
+      .footer__right a:hover {
+        color: var(--accent);
+      }
+
+      /* ============================================
+         SCROLL REVEAL
+         ============================================ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .btn--ember {
+          animation: none;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      /* ============================================
+         RESPONSIVE
+         ============================================ */
+      @media (max-width: 1024px) {
+        .product-step {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .product-step:nth-child(even) {
+          direction: ltr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 20px;
+        }
+
+        .page-header {
+          padding: 160px 0 60px;
+        }
+
+        .product {
+          padding: 40px 0 80px;
+        }
+
+        .product-step {
+          margin-bottom: 80px;
+        }
+
+        .graph-detail {
+          position: relative;
+          bottom: auto;
+          right: auto;
+          width: 100%;
+          margin-top: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page-header {
+          padding: 140px 0 40px;
+        }
+
+        .scan-stats {
+          grid-template-columns: 1fr;
+        }
+
+        footer .container {
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Vignette overlay -->
+    <div class="vignette" aria-hidden="true"></div>
+
+    <!-- ============================================
+         NAV
+         ============================================ -->
+    <nav>
+      <div class="container">
+        <a href="index.html" class="logo">
+          <svg
+            class="logo-mark"
+            viewBox="19 15 63 70"
+            width="13"
+            height="14.4"
+            aria-hidden="true"
+          >
+            <path
+              d="M 19.46 15.66 c -0.49 0.24 -0.84 0.57 -1.04 0.98 l -0.21 0.4 -0.02 21.08 c 0 11.6 0 21.09 0.04 21.09 0.07 0 0.56 -0.5 1.1 -1.12 0.22 -0.26 0.42 -0.49 0.45 -0.51 0.02 -0.02 0.13 -0.14 0.24 -0.27 0.1 -0.13 0.34 -0.39 0.52 -0.58 0.17 -0.19 0.61 -0.68 0.97 -1.08 0.36 -0.41 0.85 -0.94 1.08 -1.19 0.24 -0.24 0.5 -0.54 0.59 -0.64 0.09 -0.12 0.44 -0.49 0.77 -0.85 0.33 -0.35 0.68 -0.73 0.77 -0.84 0.09 -0.11 0.2 -0.23 0.24 -0.27 0.04 -0.04 0.32 -0.35 0.63 -0.68 0.31 -0.34 0.57 -0.62 0.59 -0.64 0.02 -0.02 0.38 -0.41 0.8 -0.88 0.42 -0.47 0.86 -0.93 0.97 -1.05 0.1 -0.11 0.34 -0.37 0.52 -0.58 0.17 -0.2 0.36 -0.41 0.39 -0.45 0.04 -0.04 0.37 -0.39 0.74 -0.78 0.36 -0.39 0.8 -0.86 0.97 -1.04 0.17 -0.19 0.61 -0.66 0.97 -1.05 0.36 -0.39 0.76 -0.82 0.88 -0.95 0.11 -0.13 0.44 -0.49 0.72 -0.81 0.29 -0.31 0.6 -0.66 0.7 -0.78 0.22 -0.26 0.76 -1.12 0.76 -1.22 0 -0.04 0.05 -0.16 0.1 -0.26 0.33 -0.61 0.33 -0.42 0.31 -12.42 l -0.02 -11.25 -0.2 -0.39 c -0.24 -0.46 -0.62 -0.81 -1.07 -1 -0.51 -0.21 -13.84 -0.2 -14.26 0.02 z M 63.61 15.65 c -1.22 0.3 -2.08 0.7 -3.08 1.47 -0.53 0.4 -1.08 0.97 -3.18 3.3 -0.33 0.38 -0.72 0.81 -0.87 0.96 -0.14 0.15 -0.47 0.51 -0.74 0.81 -0.26 0.3 -0.5 0.56 -0.52 0.58 -0.02 0.02 -0.25 0.28 -0.52 0.58 -0.26 0.3 -0.62 0.68 -0.78 0.85 -0.16 0.17 -0.39 0.43 -0.52 0.58 -0.13 0.14 -0.56 0.63 -0.96 1.08 -0.4 0.44 -0.82 0.91 -0.93 1.05 -0.12 0.14 -0.37 0.41 -0.56 0.62 -0.19 0.2 -0.57 0.62 -0.84 0.91 -0.26 0.3 -0.64 0.7 -0.83 0.91 -0.19 0.2 -0.44 0.48 -0.55 0.61 -0.12 0.13 -0.49 0.53 -0.81 0.88 -0.33 0.35 -0.68 0.73 -0.77 0.84 -0.09 0.11 -0.34 0.39 -0.56 0.61 -0.22 0.23 -0.5 0.54 -0.63 0.68 -0.13 0.16 -0.45 0.5 -0.7 0.78 -0.74 0.81 -1.69 1.84 -1.88 2.07 -0.1 0.11 -0.46 0.51 -0.79 0.88 -0.33 0.37 -0.69 0.77 -0.79 0.88 -0.36 0.4 -1.16 1.29 -1.19 1.32 -0.08 0.08 -0.69 0.75 -1.04 1.14 -0.21 0.24 -0.46 0.51 -0.56 0.61 -0.1 0.09 -0.36 0.39 -0.59 0.65 -0.23 0.26 -0.43 0.49 -0.45 0.51 -0.02 0.02 -0.14 0.16 -0.27 0.3 -0.13 0.15 -0.4 0.44 -0.59 0.64 -0.19 0.2 -0.64 0.69 -0.98 1.08 -0.35 0.39 -0.8 0.89 -1.02 1.12 -0.22 0.22 -0.69 0.73 -1.04 1.12 -0.36 0.39 -1.16 1.26 -1.77 1.92 -0.61 0.67 -1.38 1.5 -1.7 1.86 -0.32 0.36 -0.68 0.76 -0.8 0.89 -0.12 0.13 -0.58 0.64 -1 1.12 -0.44 0.49 -0.97 1.06 -1.18 1.29 -0.22 0.22 -0.59 0.64 -0.84 0.91 -0.25 0.28 -0.63 0.69 -0.84 0.91 -0.21 0.22 -0.49 0.53 -0.63 0.67 -0.13 0.14 -0.27 0.3 -0.31 0.34 -0.04 0.04 -0.46 0.5 -0.93 1.02 -0.47 0.52 -1.07 1.17 -1.32 1.45 -0.25 0.28 -0.52 0.57 -0.59 0.64 -0.61 0.66 -1.98 2.27 -2.1 2.44 -0.07 0.12 -0.15 0.22 -0.17 0.24 -0.1 0.09 -0.42 0.63 -0.64 1.08 -0.43 0.87 -0.66 1.5 -0.9 2.41 -0.16 0.61 -0.17 17.57 -0.02 18.09 0.15 0.5 0.45 0.92 0.81 1.15 0.61 0.39 0.27 0.38 7.56 0.37 7.68 0 7.15 0.04 7.77 -0.6 0.63 -0.65 0.56 0.31 0.61 -9.9 0.05 -9.63 0.05 -9.75 0.41 -10.6 0.03 -0.07 0.14 -0.35 0.25 -0.61 0.37 -0.9 0.89 -1.61 2.08 -2.81 1.19 -1.21 4.14 -4.19 5.06 -5.12 0.48 -0.49 1.03 -1.04 1.22 -1.25 0.19 -0.2 0.61 -0.62 0.93 -0.95 1.07 -1.06 2.52 -2.53 3.66 -3.7 0.61 -0.63 1.53 -1.56 2.02 -2.05 1.55 -1.55 1.8 -1.81 2.22 -2.26 0.4 -0.42 0.8 -0.83 3.1 -3.14 2.05 -2.07 4.03 -4.07 5.19 -5.25 0.46 -0.47 1.31 -1.32 1.88 -1.9 0.58 -0.58 1.41 -1.42 1.85 -1.87 0.44 -0.45 1.19 -1.21 1.67 -1.69 0.48 -0.48 1.41 -1.43 2.05 -2.09 0.65 -0.67 1.62 -1.66 2.16 -2.2 0.54 -0.54 1.25 -1.26 1.58 -1.59 1.14 -1.17 2.13 -2.17 3.88 -3.93 3.76 -3.78 3.84 -3.87 3.84 -4.49 0 -0.49 -0.33 -1.02 -0.77 -1.25 -0.39 -0.19 -14.9 -0.19 -15.7 0 z M 54.64 47.54 c -0.33 0.08 -0.84 0.48 -1.57 1.25 -0.44 0.46 -0.88 0.91 -0.97 1 -0.1 0.1 -0.36 0.38 -0.59 0.62 -1.18 1.25 -2.16 2.26 -2.76 2.87 -0.36 0.37 -0.95 0.97 -1.29 1.31 -0.34 0.35 -0.98 1 -1.42 1.44 -0.95 0.96 -1.14 1.25 -1.17 1.92 -0.03 0.43 0 0.53 0.18 0.89 0.16 0.32 1.19 1.84 1.46 2.15 0.03 0.03 0.31 0.43 0.61 0.88 0.31 0.45 0.75 1.08 0.99 1.4 0.24 0.33 0.44 0.62 0.44 0.66 0 0.03 0.03 0.07 0.06 0.09 0.03 0 0.19 0.23 0.36 0.49 0.17 0.26 0.33 0.48 0.37 0.49 0.03 0.01 0.06 0.05 0.06 0.08 0 0.03 0.17 0.29 0.38 0.58 0.21 0.3 0.54 0.78 0.75 1.07 0.2 0.3 0.62 0.9 0.93 1.34 0.31 0.44 1.14 1.65 1.86 2.68 0.72 1.03 1.64 2.35 2.04 2.93 0.9 1.28 3.3 4.76 3.45 4.98 0.12 0.19 1.69 2.43 2.38 3.41 1.06 1.48 1.89 2.11 3.5 2.62 l 0.56 0.18 7.99 0 c 7.79 0 8 0 8.25 -0.13 0.9 -0.45 1.05 -1.31 0.4 -2.23 -0.35 -0.49 -2.23 -3.03 -2.35 -3.16 -0.03 -0.04 -0.25 -0.34 -0.49 -0.66 -0.24 -0.33 -0.76 -1.02 -1.16 -1.55 -0.86 -1.12 -0.98 -1.29 -1.23 -1.66 -0.1 -0.15 -0.45 -0.62 -0.78 -1.05 -0.33 -0.43 -1.25 -1.67 -2.05 -2.74 -0.8 -1.08 -1.67 -2.26 -1.94 -2.61 -0.26 -0.35 -0.58 -0.79 -0.7 -0.96 -0.13 -0.18 -0.71 -0.96 -1.3 -1.75 -0.59 -0.79 -1.22 -1.63 -1.39 -1.86 -0.61 -0.83 -2.12 -2.85 -2.44 -3.25 -0.18 -0.22 -0.34 -0.45 -0.37 -0.51 -0.02 -0.05 -0.23 -0.35 -0.46 -0.64 -0.23 -0.3 -0.48 -0.64 -0.56 -0.75 -0.08 -0.12 -0.34 -0.46 -0.58 -0.78 -1.18 -1.57 -1.93 -2.57 -2.28 -3.05 -0.21 -0.29 -0.51 -0.69 -0.67 -0.89 -0.26 -0.34 -0.44 -0.58 -1.27 -1.76 -0.17 -0.24 -0.33 -0.45 -0.36 -0.47 -0.03 -0.02 -0.11 -0.14 -0.19 -0.26 -0.43 -0.69 -2.83 -3.9 -3.15 -4.22 -0.45 -0.43 -0.91 -0.56 -1.49 -0.42 z"
+              fill="#d4a054"
+            />
+          </svg>
+          igumi
+        </a>
+        <a href="index.html#cta" class="btn btn--primary nav-btn"
+          >Request Access</a
+        >
+      </div>
+    </nav>
+
+    <!-- ============================================
+         PAGE HEADER
+         ============================================ -->
+    <section class="page-header">
+      <div class="container">
+        <p></p><a href="index.html" class="back-link">&larr; Back to Kigumi</a></p>
+        <div class="dimension-label">How it works</div>
+        <h1 class="headline headline--section">
+          Import. Reason. Evolve.<br />Ship with confidence.
+        </h1>
+        <p class="subtext">Four steps from codebase to living behavior map.</p>
+      </div>
+    </section>
+
+    <!-- Cut line -->
+    <div class="container">
+      <div class="cut-line"><div class="cut-line__diamond"></div></div>
+    </div>
+
+    <!-- ============================================
+         PRODUCT WALKTHROUGH
+         ============================================ -->
+    <section class="product">
+      <div class="container">
+        <!-- Step 1: Import -->
+        <div class="product-step reveal">
+          <div class="product-step__text">
+            <div class="dimension-label">
+              <span class="step-number">01</span> Import
+            </div>
+            <h3>
+              Point it at your codebase. 847 behaviors. 234 files. 12 minutes.
+            </h3>
+            <p>
+              Kigumi scans your repository and extracts a typed behavior map -
+              every state, action, condition, data flow, and event. No
+              configuration. No schema files. Just point it at your repo.
+            </p>
+          </div>
+          <div class="fake-ui">
+            <div class="fake-ui__bar">
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <span class="fake-ui__bar-title">kigumi - import</span>
+            </div>
+            <div class="fake-ui__body">
+              <div class="scan-progress">
+                <div class="scan-progress__header">
+                  <span class="scan-progress__label"
+                    >Scanning repository...</span
+                  >
+                  <span class="scan-progress__value">234 / 234 files</span>
+                </div>
+                <div class="scan-progress__track">
+                  <div class="scan-progress__fill"></div>
+                </div>
+              </div>
+              <div class="scan-stats">
+                <div class="scan-stat">
+                  <div class="scan-stat__value scan-stat__value--accent">
+                    847
+                  </div>
+                  <div class="scan-stat__label">Behaviors extracted</div>
+                </div>
+                <div class="scan-stat">
+                  <div class="scan-stat__value scan-stat__value--accent">
+                    234
+                  </div>
+                  <div class="scan-stat__label">Files processed</div>
+                </div>
+                <div class="scan-stat">
+                  <div class="scan-stat__value">52</div>
+                  <div class="scan-stat__label">States identified</div>
+                </div>
+                <div class="scan-stat">
+                  <div class="scan-stat__value">189</div>
+                  <div class="scan-stat__label">Actions mapped</div>
+                </div>
+              </div>
+              <div class="scan-files">
+                <div>
+                  <span class="amber">+</span> src/auth/login.ts
+                  <span class="amber">-- 12 behaviors</span>
+                </div>
+                <div>
+                  <span class="amber">+</span> src/api/handlers.ts
+                  <span class="amber">-- 24 behaviors</span>
+                </div>
+                <div>
+                  <span class="amber">+</span> src/store/cart.ts
+                  <span class="amber">-- 8 behaviors</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Reason -->
+        <div class="product-step reveal">
+          <div class="product-step__text">
+            <div class="dimension-label">
+              <span class="step-number">02</span> Reason
+            </div>
+            <h3>Every state, action, condition, and data flow. Visible.</h3>
+            <p>
+              The behavior graph is a typed intermediate representation - not
+              documentation, not diagrams, not comments. A living structure that
+              shows you how every piece connects.
+            </p>
+          </div>
+          <div class="fake-ui">
+            <div class="fake-ui__bar">
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <span class="fake-ui__bar-title">kigumi - behavior graph</span>
+            </div>
+            <div class="graph-panel__body">
+              <svg
+                viewBox="0 0 440 280"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- Edges -->
+                <line
+                  x1="120"
+                  y1="60"
+                  x2="240"
+                  y2="100"
+                  stroke="#3a3028"
+                  stroke-width="1.5"
+                />
+                <line
+                  x1="240"
+                  y1="100"
+                  x2="320"
+                  y2="60"
+                  stroke="#3a3028"
+                  stroke-width="1.5"
+                />
+                <line
+                  x1="240"
+                  y1="100"
+                  x2="180"
+                  y2="170"
+                  stroke="#3a3028"
+                  stroke-width="1.5"
+                />
+                <line
+                  x1="240"
+                  y1="100"
+                  x2="300"
+                  y2="170"
+                  stroke="#3a3028"
+                  stroke-width="1.5"
+                />
+                <line
+                  x1="180"
+                  y1="170"
+                  x2="240"
+                  y2="230"
+                  stroke="#3a3028"
+                  stroke-width="1.5"
+                />
+                <line
+                  x1="300"
+                  y1="170"
+                  x2="240"
+                  y2="230"
+                  stroke="#3a3028"
+                  stroke-width="1.5"
+                />
+
+                <!-- State node (Patina) -->
+                <rect
+                  x="80"
+                  y="40"
+                  width="80"
+                  height="40"
+                  rx="8"
+                  fill="#1a1410"
+                  stroke="#7ab8a0"
+                  stroke-width="1.5"
+                />
+                <text
+                  x="120"
+                  y="64"
+                  text-anchor="middle"
+                  font-family="Inter, sans-serif"
+                  font-size="11"
+                  fill="#7ab8a0"
+                >
+                  Logged Out
+                </text>
+
+                <!-- Action node (Amber) -->
+                <rect
+                  x="200"
+                  y="80"
+                  width="80"
+                  height="40"
+                  rx="8"
+                  fill="#1a1410"
+                  stroke="#d4a054"
+                  stroke-width="1.5"
+                />
+                <text
+                  x="240"
+                  y="104"
+                  text-anchor="middle"
+                  font-family="Inter, sans-serif"
+                  font-size="11"
+                  fill="#d4a054"
+                >
+                  Submit Login
+                </text>
+
+                <!-- Condition node (Terracotta) -->
+                <rect
+                  x="280"
+                  y="40"
+                  width="80"
+                  height="40"
+                  rx="8"
+                  fill="#1a1410"
+                  stroke="#c47a6c"
+                  stroke-width="1.5"
+                />
+                <text
+                  x="320"
+                  y="64"
+                  text-anchor="middle"
+                  font-family="Inter, sans-serif"
+                  font-size="11"
+                  fill="#c47a6c"
+                >
+                  Valid Creds?
+                </text>
+
+                <!-- Data node (Heartwood) -->
+                <rect
+                  x="140"
+                  y="150"
+                  width="80"
+                  height="40"
+                  rx="8"
+                  fill="#1a1410"
+                  stroke="#9a7bb5"
+                  stroke-width="1.5"
+                />
+                <text
+                  x="180"
+                  y="174"
+                  text-anchor="middle"
+                  font-family="Inter, sans-serif"
+                  font-size="11"
+                  fill="#9a7bb5"
+                >
+                  User Token
+                </text>
+
+                <!-- Event node (Blueprint) -->
+                <rect
+                  x="260"
+                  y="150"
+                  width="80"
+                  height="40"
+                  rx="8"
+                  fill="#1a1410"
+                  stroke="#7a9bb8"
+                  stroke-width="1.5"
+                />
+                <text
+                  x="300"
+                  y="174"
+                  text-anchor="middle"
+                  font-family="Inter, sans-serif"
+                  font-size="11"
+                  fill="#7a9bb8"
+                >
+                  Auth Event
+                </text>
+
+                <!-- State node 2 (Patina) -->
+                <rect
+                  x="200"
+                  y="210"
+                  width="80"
+                  height="40"
+                  rx="8"
+                  fill="#1a1410"
+                  stroke="#7ab8a0"
+                  stroke-width="1.5"
+                />
+                <text
+                  x="240"
+                  y="234"
+                  text-anchor="middle"
+                  font-family="Inter, sans-serif"
+                  font-size="11"
+                  fill="#7ab8a0"
+                >
+                  Logged In
+                </text>
+              </svg>
+
+              <!-- Detail panel -->
+              <div class="graph-detail">
+                <div class="graph-detail__title">Selected Node</div>
+                <div class="graph-detail__name">Submit Login</div>
+                <div class="graph-detail__type">Action - Authentication</div>
+                <div class="graph-detail__gwt">
+                  <strong>Given</strong> user is on login form<br />
+                  <strong>When</strong> credentials submitted<br />
+                  <strong>Then</strong> validate and authenticate
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Evolve -->
+        <div class="product-step reveal">
+          <div class="product-step__text">
+            <div class="dimension-label">
+              <span class="step-number">03</span> Evolve
+            </div>
+            <h3>Describe what you want. Review before it commits.</h3>
+            <p>
+              Tell Kigumi what to build in natural language. It proposes changes
+              to the behavior scheme - staged for your review. Accept, reject,
+              or refine. Nothing lands without your approval.
+            </p>
+          </div>
+          <div class="fake-ui">
+            <div class="fake-ui__bar">
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <span class="fake-ui__bar-title">kigumi - chat</span>
+            </div>
+            <div class="fake-ui__body">
+              <div class="chat-messages">
+                <div class="chat-msg chat-msg--user">
+                  Add a password reset flow. User enters email, gets a magic
+                  link, lands on a reset form.
+                </div>
+                <div class="chat-msg chat-msg--ai">
+                  I'll add 3 new behaviors: RequestReset (action), ValidateToken
+                  (condition), and UpdatePassword (action). This connects to
+                  your existing Auth entity. Staging the changes now.
+                </div>
+              </div>
+              <div class="staging-panel">
+                <div class="staging-panel__label">Staged Changes</div>
+                <div class="staging-item">
+                  <span
+                    >+ RequestReset
+                    <span style="color: var(--text-dim)">(action)</span></span
+                  >
+                  <div class="staging-actions">
+                    <button class="staging-btn staging-btn--accept">
+                      Accept
+                    </button>
+                    <button class="staging-btn staging-btn--reject">
+                      Reject
+                    </button>
+                  </div>
+                </div>
+                <div class="staging-item">
+                  <span
+                    >+ ValidateToken
+                    <span style="color: var(--text-dim)"
+                      >(condition)</span
+                    ></span
+                  >
+                  <div class="staging-actions">
+                    <button class="staging-btn staging-btn--accept">
+                      Accept
+                    </button>
+                    <button class="staging-btn staging-btn--reject">
+                      Reject
+                    </button>
+                  </div>
+                </div>
+                <div class="staging-item">
+                  <span
+                    >+ UpdatePassword
+                    <span style="color: var(--text-dim)">(action)</span></span
+                  >
+                  <div class="staging-actions">
+                    <button class="staging-btn staging-btn--accept">
+                      Accept
+                    </button>
+                    <button class="staging-btn staging-btn--reject">
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Verify -->
+        <div class="product-step reveal">
+          <div class="product-step__text">
+            <div class="dimension-label">
+              <span class="step-number">04</span> Verify
+            </div>
+            <h3>14 of 16 behaviors verified. Automatically.</h3>
+            <p>
+              Every behavior in the scheme is validated against structural
+              rules, completeness checks, and consistency constraints. You know
+              exactly where the gaps are - before they become bugs in
+              production.
+            </p>
+          </div>
+          <div class="fake-ui">
+            <div class="fake-ui__bar">
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <div class="fake-ui__dot"></div>
+              <span class="fake-ui__bar-title">kigumi - verify</span>
+            </div>
+            <div class="fake-ui__body">
+              <div class="verify-score">
+                <div class="verify-score__value">14/16</div>
+                <div class="verify-score__label">Behaviors Verified</div>
+              </div>
+              <ul class="verify-list">
+                <li class="verify-item">
+                  <span class="verify-item__icon--pass">&#10003;</span>
+                  <span>Login flow - all states reachable</span>
+                </li>
+                <li class="verify-item">
+                  <span class="verify-item__icon--pass">&#10003;</span>
+                  <span>Cart checkout - data flows complete</span>
+                </li>
+                <li class="verify-item">
+                  <span class="verify-item__icon--pass">&#10003;</span>
+                  <span>User profile - GWT examples present</span>
+                </li>
+                <li class="verify-item">
+                  <span class="verify-item__icon--pass">&#10003;</span>
+                  <span>Search - condition edges valid</span>
+                </li>
+                <li class="verify-item">
+                  <span class="verify-item__icon--fail">&#10007;</span>
+                  <span>Password reset - missing error state</span>
+                </li>
+                <li class="verify-item">
+                  <span class="verify-item__icon--fail">&#10007;</span>
+                  <span>Notifications - orphaned event node</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cut line -->
+    <div class="container">
+      <div class="cut-line"><div class="cut-line__diamond"></div></div>
+    </div>
+
+    <!-- ============================================
+         CTA
+         ============================================ -->
+    <section class="cta-section">
+      <div class="container">
+        <h2 class="headline headline--section reveal">
+          Import your repo. See what it does.
+        </h2>
+        <p class="cta-annotation reveal">
+          <em>Code changes. Behavior persists.</em>
+        </p>
+        <div class="reveal" style="margin-top: 20px">
+          <a href="index.html#cta" class="btn btn--primary btn--ember"
+            >Request Early Access</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+      <div class="container">
+        <div class="footer__wordmark">
+          <svg
+            viewBox="19 15 63 70"
+            width="10"
+            height="11.5"
+            aria-hidden="true"
+          >
+            <path
+              d="M 19.46 15.66 c -0.49 0.24 -0.84 0.57 -1.04 0.98 l -0.21 0.4 -0.02 21.08 c 0 11.6 0 21.09 0.04 21.09 0.07 0 0.56 -0.5 1.1 -1.12 0.22 -0.26 0.42 -0.49 0.45 -0.51 0.02 -0.02 0.13 -0.14 0.24 -0.27 0.1 -0.13 0.34 -0.39 0.52 -0.58 0.17 -0.19 0.61 -0.68 0.97 -1.08 0.36 -0.41 0.85 -0.94 1.08 -1.19 0.24 -0.24 0.5 -0.54 0.59 -0.64 0.09 -0.12 0.44 -0.49 0.77 -0.85 0.33 -0.35 0.68 -0.73 0.77 -0.84 0.09 -0.11 0.2 -0.23 0.24 -0.27 0.04 -0.04 0.32 -0.35 0.63 -0.68 0.31 -0.34 0.57 -0.62 0.59 -0.64 0.02 -0.02 0.38 -0.41 0.8 -0.88 0.42 -0.47 0.86 -0.93 0.97 -1.05 0.1 -0.11 0.34 -0.37 0.52 -0.58 0.17 -0.2 0.36 -0.41 0.39 -0.45 0.04 -0.04 0.37 -0.39 0.74 -0.78 0.36 -0.39 0.8 -0.86 0.97 -1.04 0.17 -0.19 0.61 -0.66 0.97 -1.05 0.36 -0.39 0.76 -0.82 0.88 -0.95 0.11 -0.13 0.44 -0.49 0.72 -0.81 0.29 -0.31 0.6 -0.66 0.7 -0.78 0.22 -0.26 0.76 -1.12 0.76 -1.22 0 -0.04 0.05 -0.16 0.1 -0.26 0.33 -0.61 0.33 -0.42 0.31 -12.42 l -0.02 -11.25 -0.2 -0.39 c -0.24 -0.46 -0.62 -0.81 -1.07 -1 -0.51 -0.21 -13.84 -0.2 -14.26 0.02 z M 63.61 15.65 c -1.22 0.3 -2.08 0.7 -3.08 1.47 -0.53 0.4 -1.08 0.97 -3.18 3.3 -0.33 0.38 -0.72 0.81 -0.87 0.96 -0.14 0.15 -0.47 0.51 -0.74 0.81 -0.26 0.3 -0.5 0.56 -0.52 0.58 -0.02 0.02 -0.25 0.28 -0.52 0.58 -0.26 0.3 -0.62 0.68 -0.78 0.85 -0.16 0.17 -0.39 0.43 -0.52 0.58 -0.13 0.14 -0.56 0.63 -0.96 1.08 -0.4 0.44 -0.82 0.91 -0.93 1.05 -0.12 0.14 -0.37 0.41 -0.56 0.62 -0.19 0.2 -0.57 0.62 -0.84 0.91 -0.26 0.3 -0.64 0.7 -0.83 0.91 -0.19 0.2 -0.44 0.48 -0.55 0.61 -0.12 0.13 -0.49 0.53 -0.81 0.88 -0.33 0.35 -0.68 0.73 -0.77 0.84 -0.09 0.11 -0.34 0.39 -0.56 0.61 -0.22 0.23 -0.5 0.54 -0.63 0.68 -0.13 0.16 -0.45 0.5 -0.7 0.78 -0.74 0.81 -1.69 1.84 -1.88 2.07 -0.1 0.11 -0.46 0.51 -0.79 0.88 -0.33 0.37 -0.69 0.77 -0.79 0.88 -0.36 0.4 -1.16 1.29 -1.19 1.32 -0.08 0.08 -0.69 0.75 -1.04 1.14 -0.21 0.24 -0.46 0.51 -0.56 0.61 -0.1 0.09 -0.36 0.39 -0.59 0.65 -0.23 0.26 -0.43 0.49 -0.45 0.51 -0.02 0.02 -0.14 0.16 -0.27 0.3 -0.13 0.15 -0.4 0.44 -0.59 0.64 -0.19 0.2 -0.64 0.69 -0.98 1.08 -0.35 0.39 -0.8 0.89 -1.02 1.12 -0.22 0.22 -0.69 0.73 -1.04 1.12 -0.36 0.39 -1.16 1.26 -1.77 1.92 -0.61 0.67 -1.38 1.5 -1.7 1.86 -0.32 0.36 -0.68 0.76 -0.8 0.89 -0.12 0.13 -0.58 0.64 -1 1.12 -0.44 0.49 -0.97 1.06 -1.18 1.29 -0.22 0.22 -0.59 0.64 -0.84 0.91 -0.25 0.28 -0.63 0.69 -0.84 0.91 -0.21 0.22 -0.49 0.53 -0.63 0.67 -0.13 0.14 -0.27 0.3 -0.31 0.34 -0.04 0.04 -0.46 0.5 -0.93 1.02 -0.47 0.52 -1.07 1.17 -1.32 1.45 -0.25 0.28 -0.52 0.57 -0.59 0.64 -0.61 0.66 -1.98 2.27 -2.1 2.44 -0.07 0.12 -0.15 0.22 -0.17 0.24 -0.1 0.09 -0.42 0.63 -0.64 1.08 -0.43 0.87 -0.66 1.5 -0.9 2.41 -0.16 0.61 -0.17 17.57 -0.02 18.09 0.15 0.5 0.45 0.92 0.81 1.15 0.61 0.39 0.27 0.38 7.56 0.37 7.68 0 7.15 0.04 7.77 -0.6 0.63 -0.65 0.56 0.31 0.61 -9.9 0.05 -9.63 0.05 -9.75 0.41 -10.6 0.03 -0.07 0.14 -0.35 0.25 -0.61 0.37 -0.9 0.89 -1.61 2.08 -2.81 1.19 -1.21 4.14 -4.19 5.06 -5.12 0.48 -0.49 1.03 -1.04 1.22 -1.25 0.19 -0.2 0.61 -0.62 0.93 -0.95 1.07 -1.06 2.52 -2.53 3.66 -3.7 0.61 -0.63 1.53 -1.56 2.02 -2.05 1.55 -1.55 1.8 -1.81 2.22 -2.26 0.4 -0.42 0.8 -0.83 3.1 -3.14 2.05 -2.07 4.03 -4.07 5.19 -5.25 0.46 -0.47 1.31 -1.32 1.88 -1.9 0.58 -0.58 1.41 -1.42 1.85 -1.87 0.44 -0.45 1.19 -1.21 1.67 -1.69 0.48 -0.48 1.41 -1.43 2.05 -2.09 0.65 -0.67 1.62 -1.66 2.16 -2.2 0.54 -0.54 1.25 -1.26 1.58 -1.59 1.14 -1.17 2.13 -2.17 3.88 -3.93 3.76 -3.78 3.84 -3.87 3.84 -4.49 0 -0.49 -0.33 -1.02 -0.77 -1.25 -0.39 -0.19 -14.9 -0.19 -15.7 0 z M 54.64 47.54 c -0.33 0.08 -0.84 0.48 -1.57 1.25 -0.44 0.46 -0.88 0.91 -0.97 1 -0.1 0.1 -0.36 0.38 -0.59 0.62 -1.18 1.25 -2.16 2.26 -2.76 2.87 -0.36 0.37 -0.95 0.97 -1.29 1.31 -0.34 0.35 -0.98 1 -1.42 1.44 -0.95 0.96 -1.14 1.25 -1.17 1.92 -0.03 0.43 0 0.53 0.18 0.89 0.16 0.32 1.19 1.84 1.46 2.15 0.03 0.03 0.31 0.43 0.61 0.88 0.31 0.45 0.75 1.08 0.99 1.4 0.24 0.33 0.44 0.62 0.44 0.66 0 0.03 0.03 0.07 0.06 0.09 0.03 0 0.19 0.23 0.36 0.49 0.17 0.26 0.33 0.48 0.37 0.49 0.03 0.01 0.06 0.05 0.06 0.08 0 0.03 0.17 0.29 0.38 0.58 0.21 0.3 0.54 0.78 0.75 1.07 0.2 0.3 0.62 0.9 0.93 1.34 0.31 0.44 1.14 1.65 1.86 2.68 0.72 1.03 1.64 2.35 2.04 2.93 0.9 1.28 3.3 4.76 3.45 4.98 0.12 0.19 1.69 2.43 2.38 3.41 1.06 1.48 1.89 2.11 3.5 2.62 l 0.56 0.18 7.99 0 c 7.79 0 8 0 8.25 -0.13 0.9 -0.45 1.05 -1.31 0.4 -2.23 -0.35 -0.49 -2.23 -3.03 -2.35 -3.16 -0.03 -0.04 -0.25 -0.34 -0.49 -0.66 -0.24 -0.33 -0.76 -1.02 -1.16 -1.55 -0.86 -1.12 -0.98 -1.29 -1.23 -1.66 -0.1 -0.15 -0.45 -0.62 -0.78 -1.05 -0.33 -0.43 -1.25 -1.67 -2.05 -2.74 -0.8 -1.08 -1.67 -2.26 -1.94 -2.61 -0.26 -0.35 -0.58 -0.79 -0.7 -0.96 -0.13 -0.18 -0.71 -0.96 -1.3 -1.75 -0.59 -0.79 -1.22 -1.63 -1.39 -1.86 -0.61 -0.83 -2.12 -2.85 -2.44 -3.25 -0.18 -0.22 -0.34 -0.45 -0.37 -0.51 -0.02 -0.05 -0.23 -0.35 -0.46 -0.64 -0.23 -0.3 -0.48 -0.64 -0.56 -0.75 -0.08 -0.12 -0.34 -0.46 -0.58 -0.78 -1.18 -1.57 -1.93 -2.57 -2.28 -3.05 -0.21 -0.29 -0.51 -0.69 -0.67 -0.89 -0.26 -0.34 -0.44 -0.58 -1.27 -1.76 -0.17 -0.24 -0.33 -0.45 -0.36 -0.47 -0.03 -0.02 -0.11 -0.14 -0.19 -0.26 -0.43 -0.69 -2.83 -3.9 -3.15 -4.22 -0.45 -0.43 -0.91 -0.56 -1.49 -0.42 z"
+              fill="#9a8a74"
+            />
+          </svg>
+          igumi
+        </div>
+        <div class="footer__right">
+          <span>&copy; 2026 Kigumi</span>
+          <a href="mailto:hello@kigumi.dev">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================
+         SCROLL REVEAL JS
+         ============================================ -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var reveals = document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+          );
+
+          reveals.forEach(function (el) {
+            observer.observe(el);
+          });
+        } else {
+          reveals.forEach(function (el) {
+            el.classList.add("visible");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
