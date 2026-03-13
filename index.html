@@ -3,29 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kigumi -- AI made code cheap. Kigumi makes behavior visible.</title>
+    <title>Kigumi - Your codebase grows. Your understanding shrinks.</title>
     <meta
       name="description"
-      content="AI made code cheap. Kigumi makes behavior visible. A typed behavior layer for your codebase -- import, reason, evolve, verify."
+      content="Kigumi gives you a live map of what your software actually does - every state, action, and decision. Visible."
     />
     <meta
       property="og:title"
-      content="Kigumi -- AI made code cheap. Kigumi makes behavior visible."
+      content="Kigumi - Your codebase grows. Your understanding shrinks."
     />
     <meta
       property="og:description"
-      content="A typed behavior layer for your codebase. Import, reason, evolve, verify."
+      content="Kigumi gives you a live map of what your software actually does - every state, action, and decision. Visible."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kigumi.dev" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Kigumi -- AI made code cheap. Kigumi makes behavior visible."
+      content="Kigumi - Your codebase grows. Your understanding shrinks."
     />
     <meta
       name="twitter:description"
-      content="A typed behavior layer for your codebase. Import, reason, evolve, verify."
+      content="Kigumi gives you a live map of what your software actually does - every state, action, and decision. Visible."
     />
     <meta property="og:image" content="og-image.svg" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -1289,6 +1289,249 @@
           text-align: center;
         }
       }
+
+      /* ============================================
+         PROBLEM (REWORKED) -- STARK LINES
+         ============================================ */
+      .problem-lines {
+        padding: 100px 0;
+      }
+
+      .problem-lines__content {
+        max-width: 680px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .problem-lines__content p {
+        font-size: 18px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      /* ============================================
+         PAYOFF CARDS
+         ============================================ */
+      .payoff {
+        padding: 120px 0;
+      }
+
+      .payoff__header {
+        margin-bottom: 60px;
+      }
+
+      .payoff__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .payoff-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 32px;
+      }
+
+      .payoff-card__title {
+        font-family: var(--heading);
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .payoff-card__text {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      @media (max-width: 1024px) {
+        .payoff__grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+      }
+
+      /* ============================================
+         VISUAL PROOF
+         ============================================ */
+      .proof {
+        padding: 100px 0;
+        text-align: center;
+      }
+
+      .proof__block {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .proof__block::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        height: 120%;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(212, 160, 84, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .proof-app {
+        position: relative;
+      }
+
+      .proof-app__phases {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: auto;
+      }
+
+      .proof-app__phase {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--text-dim);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .proof-app__phase--done {
+        color: var(--patina);
+      }
+
+      .proof-app__phase--active {
+        color: var(--amber);
+      }
+
+      .proof-app__phase-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .proof-app__toolbar {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 8px 16px;
+        border-bottom: 1px solid var(--border);
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text-dim);
+      }
+
+      .proof-app__legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .proof-app__legend-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .proof-app__stat {
+        margin-left: auto;
+        color: var(--text-dim);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+
+      .proof-app__graph {
+        background: var(--bg);
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .proof-app__graph svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .proof-app__dock {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        border-top: 1px solid var(--border);
+        background: rgba(26, 20, 16, 0.6);
+      }
+
+      .proof-app__tab {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--text-dim);
+        padding: 8px 20px;
+        border-top: 2px solid transparent;
+      }
+
+      .proof-app__tab--active {
+        color: var(--amber);
+        border-top-color: var(--amber);
+      }
+
+      .proof__caption {
+        margin-top: 20px;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 16px;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 768px) {
+        .proof-app__phases,
+        .proof-app__toolbar {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .proof__block {
+          margin: 0 -8px;
+        }
+      }
+
+      /* ============================================
+         POSITIONING CONTRAST LINES
+         ============================================ */
+      .positioning {
+        padding: 100px 0;
+      }
+
+      .positioning__lines {
+        max-width: 680px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .positioning__lines p {
+        font-size: 18px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      .positioning__lines strong {
+        color: var(--text);
+        font-weight: 600;
+      }
     </style>
   </head>
   <body>
@@ -1324,31 +1567,27 @@
          ============================================ -->
     <section class="hero">
       <div class="container">
-        <div class="label hero__label">
-          For technical founders and CTOs with growing codebases
-        </div>
+        <div class="label hero__label">For technical founders and CTOs</div>
         <h1 class="headline headline--hero">
-          AI made code cheap.<br />
-          Kigumi makes <span class="accent">behavior</span> visible.
+          Your codebase grows.<br />
+          Your <span class="accent">understanding</span> shrinks.
         </h1>
-        <div class="hero__bracket callout-bracket subtext">
-          AI is writing code faster than you can track intent. Kigumi gives your
-          codebase a behavior layer -- a typed map of what your software
-          actually does. Structure that holds because the pieces fit, not
-          because someone hammered a fix on top.
-        </div>
+        <p class="subtext" style="margin: 28px auto 44px">
+          Kigumi gives you a live map of what your software actually does. Every
+          state, action, and decision. Visible.
+        </p>
         <div class="hero__actions">
           <a href="#cta" class="btn btn--primary btn--ember"
             >Request Early Access</a
           >
-          <a href="#walkthrough" class="btn btn--ghost">See how it works</a>
+          <a href="how-it-works.html" class="btn btn--ghost">How it works</a>
         </div>
       </div>
       <span
         class="margin-note"
         style="right: 40px; top: 220px"
         aria-hidden="true"
-        >rev. 03</span
+        >rev. 04</span
       >
     </section>
 
@@ -1358,20 +1597,23 @@
     </div>
 
     <!-- ============================================
-         PROBLEM SECTION
+         PROBLEM -- STARK LINES
          ============================================ -->
-    <section class="problem reveal">
+    <section class="problem-lines reveal">
       <div class="container">
         <div class="problem__layout">
-          <div>
+          <div class="problem-lines__content">
             <h2 class="headline headline--section">
-              AI writes code.<br />Nobody writes intent.
+              AI writes more code every week. Nobody captures the intent behind
+              it.
             </h2>
-            <p class="subtext">
-              Every AI-generated commit widens the gap between what your system
-              does and what you think it does. Code volume is growing.
-              Understanding is shrinking. PRDs die on delivery. RFCs rot in
-              Notion. The original WHY behind every feature fades to nothing.
+            <p>
+              PRDs rot. RFCs die in Notion. The original WHY behind every
+              feature fades to nothing.
+            </p>
+            <p>
+              In 12 months, you won't be able to answer "what does our product
+              actually do?" from the code alone.
             </p>
           </div>
           <div class="gap-visual">
@@ -1505,450 +1747,367 @@
     </div>
 
     <!-- ============================================
-         PRODUCT WALKTHROUGH
+         PAYOFF -- WHAT YOU GET
          ============================================ -->
-    <section class="product" id="walkthrough">
+    <section class="payoff">
       <div class="container">
-        <div class="product__header reveal">
-          <div class="dimension-label">How it works</div>
-          <h2 class="headline headline--section">
-            Import. Reason. Evolve.<br />Ship with confidence.
-          </h2>
+        <div class="payoff__header">
+          <div class="dimension-label">What you get</div>
         </div>
-
-        <!-- Step 1: Import -->
-        <div class="product-step reveal">
-          <div class="product-step__text">
-            <div class="dimension-label">
-              <span class="step-number">01</span> Import
+        <div class="payoff__grid">
+          <div class="payoff-card reveal reveal-delay-1">
+            <div class="payoff-card__title">See your system</div>
+            <div class="payoff-card__text">
+              Import your repo. Get a map of every behavior - states, actions,
+              conditions, data flows. In minutes.
             </div>
-            <h3>
-              Point it at your codebase. 847 behaviors. 234 files. 12 minutes.
-            </h3>
-            <p>
-              Kigumi scans your repository and extracts a typed behavior map --
-              every state, action, condition, data flow, and event. No
-              configuration. No schema files. Just point it at your repo.
-            </p>
           </div>
-          <div class="fake-ui">
-            <div class="fake-ui__bar">
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <span class="fake-ui__bar-title">kigumi -- import</span>
+          <div class="payoff-card reveal reveal-delay-2">
+            <div class="payoff-card__title">Change with confidence</div>
+            <div class="payoff-card__text">
+              See what you're affecting before you touch it. Describe changes in
+              English. Review before it commits.
             </div>
-            <div class="fake-ui__body">
-              <div class="scan-progress">
-                <div class="scan-progress__header">
-                  <span class="scan-progress__label"
-                    >Scanning repository...</span
-                  >
-                  <span class="scan-progress__value">234 / 234 files</span>
-                </div>
-                <div class="scan-progress__track">
-                  <div class="scan-progress__fill"></div>
-                </div>
-              </div>
-              <div class="scan-stats">
-                <div class="scan-stat">
-                  <div class="scan-stat__value scan-stat__value--accent">
-                    847
-                  </div>
-                  <div class="scan-stat__label">Behaviors extracted</div>
-                </div>
-                <div class="scan-stat">
-                  <div class="scan-stat__value scan-stat__value--accent">
-                    234
-                  </div>
-                  <div class="scan-stat__label">Files processed</div>
-                </div>
-                <div class="scan-stat">
-                  <div class="scan-stat__value">52</div>
-                  <div class="scan-stat__label">States identified</div>
-                </div>
-                <div class="scan-stat">
-                  <div class="scan-stat__value">189</div>
-                  <div class="scan-stat__label">Actions mapped</div>
-                </div>
-              </div>
-              <div class="scan-files">
-                <div>
-                  <span class="amber">+</span> src/auth/login.ts
-                  <span class="amber">-- 12 behaviors</span>
-                </div>
-                <div>
-                  <span class="amber">+</span> src/api/handlers.ts
-                  <span class="amber">-- 24 behaviors</span>
-                </div>
-                <div>
-                  <span class="amber">+</span> src/store/cart.ts
-                  <span class="amber">-- 8 behaviors</span>
-                </div>
-              </div>
+          </div>
+          <div class="payoff-card reveal reveal-delay-3">
+            <div class="payoff-card__title">Intent that survives</div>
+            <div class="payoff-card__text">
+              Every behavior captured with its WHY. Not documentation that rots
+              but structure that compiles.
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Step 2: Reason -->
-        <div class="product-step reveal">
-          <div class="product-step__text">
-            <div class="dimension-label">
-              <span class="step-number">02</span> Reason
-            </div>
-            <h3>Every state, action, condition, and data flow. Visible.</h3>
-            <p>
-              The behavior graph is a typed intermediate representation -- not
-              documentation, not diagrams, not comments. A living structure that
-              shows you how every piece connects.
-            </p>
-          </div>
-          <div class="fake-ui">
+    <!-- Cut line -->
+    <div class="container">
+      <div class="cut-line"><div class="cut-line__diamond"></div></div>
+    </div>
+
+    <!-- ============================================
+         VISUAL PROOF PLACEHOLDER
+         ============================================ -->
+    <section class="proof reveal">
+      <div class="container">
+        <div class="proof__block">
+          <div class="fake-ui proof-app">
+            <!-- Title bar -->
             <div class="fake-ui__bar">
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <span class="fake-ui__bar-title">kigumi -- behavior graph</span>
+              <span class="fake-ui__dot"></span>
+              <span class="fake-ui__dot"></span>
+              <span class="fake-ui__dot"></span>
+              <span class="fake-ui__bar-title">kigumi — saas-starter</span>
+              <div class="proof-app__phases">
+                <span class="proof-app__phase proof-app__phase--done"
+                  ><span class="proof-app__phase-dot"></span> Import</span
+                >
+                <span class="proof-app__phase proof-app__phase--active"
+                  ><span class="proof-app__phase-dot"></span> Build</span
+                >
+                <span class="proof-app__phase"
+                  ><span class="proof-app__phase-dot"></span> Verify</span
+                >
+              </div>
             </div>
-            <div class="graph-panel__body">
+            <!-- Toolbar -->
+            <div class="proof-app__toolbar">
+              <span class="proof-app__legend-item"
+                ><span
+                  class="proof-app__legend-dot"
+                  style="background: #7ab8a0"
+                ></span>
+                State</span
+              >
+              <span class="proof-app__legend-item"
+                ><span
+                  class="proof-app__legend-dot"
+                  style="background: #d4a054"
+                ></span>
+                Action</span
+              >
+              <span class="proof-app__legend-item"
+                ><span
+                  class="proof-app__legend-dot"
+                  style="background: #c47a6c"
+                ></span>
+                Condition</span
+              >
+              <span class="proof-app__legend-item"
+                ><span
+                  class="proof-app__legend-dot"
+                  style="background: #9a7bb5"
+                ></span>
+                Data</span
+              >
+              <span class="proof-app__legend-item"
+                ><span
+                  class="proof-app__legend-dot"
+                  style="background: #7a9bb8"
+                ></span>
+                Event</span
+              >
+              <span class="proof-app__stat">38 nodes · 47 edges</span>
+            </div>
+            <!-- Graph canvas -->
+            <div class="proof-app__graph">
               <svg
-                viewBox="0 0 440 280"
+                viewBox="0 0 640 340"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <!-- Edges -->
-                <line
-                  x1="120"
-                  y1="60"
-                  x2="240"
-                  y2="100"
-                  stroke="#3a3028"
-                  stroke-width="1.5"
-                />
-                <line
-                  x1="240"
-                  y1="100"
-                  x2="320"
-                  y2="60"
-                  stroke="#3a3028"
-                  stroke-width="1.5"
-                />
-                <line
-                  x1="240"
-                  y1="100"
-                  x2="180"
-                  y2="170"
-                  stroke="#3a3028"
-                  stroke-width="1.5"
-                />
-                <line
-                  x1="240"
-                  y1="100"
-                  x2="300"
-                  y2="170"
-                  stroke="#3a3028"
-                  stroke-width="1.5"
-                />
-                <line
-                  x1="180"
-                  y1="170"
-                  x2="240"
-                  y2="230"
-                  stroke="#3a3028"
-                  stroke-width="1.5"
-                />
-                <line
-                  x1="300"
-                  y1="170"
-                  x2="240"
-                  y2="230"
-                  stroke="#3a3028"
-                  stroke-width="1.5"
-                />
-
-                <!-- State node (Patina) -->
-                <rect
-                  x="80"
-                  y="40"
-                  width="80"
-                  height="40"
-                  rx="8"
-                  fill="#1a1410"
-                  stroke="#7ab8a0"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="120"
-                  y="64"
-                  text-anchor="middle"
-                  font-family="Inter, sans-serif"
-                  font-size="11"
-                  fill="#7ab8a0"
-                >
-                  Logged Out
-                </text>
-
-                <!-- Action node (Amber) -->
-                <rect
-                  x="200"
-                  y="80"
-                  width="80"
-                  height="40"
-                  rx="8"
-                  fill="#1a1410"
-                  stroke="#d4a054"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="240"
-                  y="104"
-                  text-anchor="middle"
-                  font-family="Inter, sans-serif"
-                  font-size="11"
-                  fill="#d4a054"
-                >
-                  Submit Login
-                </text>
-
-                <!-- Condition node (Terracotta) -->
-                <rect
-                  x="280"
-                  y="40"
-                  width="80"
-                  height="40"
-                  rx="8"
-                  fill="#1a1410"
-                  stroke="#c47a6c"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="320"
-                  y="64"
-                  text-anchor="middle"
-                  font-family="Inter, sans-serif"
-                  font-size="11"
-                  fill="#c47a6c"
-                >
-                  Valid Creds?
-                </text>
-
-                <!-- Data node (Heartwood) -->
-                <rect
-                  x="140"
-                  y="150"
-                  width="80"
-                  height="40"
-                  rx="8"
-                  fill="#1a1410"
-                  stroke="#9a7bb5"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="180"
-                  y="174"
-                  text-anchor="middle"
-                  font-family="Inter, sans-serif"
-                  font-size="11"
-                  fill="#9a7bb5"
-                >
-                  User Token
-                </text>
-
-                <!-- Event node (Blueprint) -->
-                <rect
-                  x="260"
-                  y="150"
-                  width="80"
-                  height="40"
-                  rx="8"
-                  fill="#1a1410"
-                  stroke="#7a9bb8"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="300"
-                  y="174"
-                  text-anchor="middle"
-                  font-family="Inter, sans-serif"
-                  font-size="11"
-                  fill="#7a9bb8"
-                >
-                  Auth Event
-                </text>
-
-                <!-- State node 2 (Patina) -->
-                <rect
-                  x="200"
-                  y="210"
-                  width="80"
-                  height="40"
-                  rx="8"
-                  fill="#1a1410"
-                  stroke="#7ab8a0"
-                  stroke-width="1.5"
-                />
-                <text
-                  x="240"
-                  y="234"
-                  text-anchor="middle"
-                  font-family="Inter, sans-serif"
-                  font-size="11"
-                  fill="#7ab8a0"
-                >
-                  Logged In
-                </text>
+                <g stroke="#3a3028" stroke-width="1.5">
+                  <line x1="138" y1="60" x2="190" y2="100" />
+                  <!-- Splash -> Login -->
+                  <line x1="138" y1="60" x2="190" y2="200" />
+                  <!-- Splash -> Register -->
+                  <line x1="270" y1="120" x2="310" y2="120" />
+                  <!-- Login -> Valid Creds? -->
+                  <line x1="270" y1="220" x2="310" y2="140" />
+                  <!-- Register -> Valid Creds? -->
+                  <line x1="420" y1="120" x2="470" y2="65" />
+                  <!-- Valid Creds? -> Dashboard -->
+                  <line x1="370" y1="142" x2="250" y2="270" />
+                  <!-- Valid Creds? -> Forgot Pwd -->
+                  <line x1="330" y1="292" x2="380" y2="292" />
+                  <!-- Forgot Pwd -> Send Reset -->
+                  <line x1="250" y1="120" x2="250" y2="270" />
+                  <!-- Login -> Forgot Pwd -->
+                  <line x1="560" y1="65" x2="560" y2="170" />
+                  <!-- Dashboard -> User Session -->
+                </g>
+                <!-- Node 1: Splash Screen (State) -->
+                <g transform="translate(28, 38)">
+                  <rect
+                    width="120"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#7ab8a0"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#7ab8a0"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    Splash Screen
+                  </text>
+                </g>
+                <!-- Node 2: Login (Action) -->
+                <g transform="translate(180, 98)">
+                  <rect
+                    width="90"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#d4a054"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#d4a054"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    Login
+                  </text>
+                </g>
+                <!-- Node 3: Register (Action) -->
+                <g transform="translate(180, 198)">
+                  <rect
+                    width="90"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#d4a054"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#d4a054"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    Register
+                  </text>
+                </g>
+                <!-- Node 4: Valid Creds? (Condition) -->
+                <g transform="translate(305, 98)">
+                  <rect
+                    width="118"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#c47a6c"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#c47a6c"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    Valid Creds?
+                  </text>
+                </g>
+                <!-- Node 5: Dashboard (State) -->
+                <g transform="translate(460, 38)">
+                  <rect
+                    width="110"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#7ab8a0"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#7ab8a0"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    Dashboard
+                  </text>
+                </g>
+                <!-- Node 6: Forgot Password (Action) -->
+                <g transform="translate(170, 270)">
+                  <rect
+                    width="150"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#d4a054"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#d4a054"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    Forgot Password
+                  </text>
+                </g>
+                <!-- Node 7: Send Reset Email (Event) -->
+                <g transform="translate(370, 270)">
+                  <rect
+                    width="155"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#7a9bb8"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#7a9bb8"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    Send Reset Email
+                  </text>
+                </g>
+                <!-- Node 8: User Session (Data) -->
+                <g transform="translate(475, 165)">
+                  <rect
+                    width="125"
+                    height="44"
+                    rx="6"
+                    fill="#1a1410"
+                    stroke="#9a7bb5"
+                    stroke-width="1.5"
+                  />
+                  <rect
+                    x="1"
+                    y="8"
+                    width="3"
+                    height="28"
+                    rx="1.5"
+                    fill="#9a7bb5"
+                  />
+                  <text
+                    x="18"
+                    y="27"
+                    font-family="'JetBrains Mono', monospace"
+                    font-size="10"
+                    fill="#c8b89a"
+                  >
+                    User Session
+                  </text>
+                </g>
               </svg>
-
-              <!-- Detail panel -->
-              <div class="graph-detail">
-                <div class="graph-detail__title">Selected Node</div>
-                <div class="graph-detail__name">Submit Login</div>
-                <div class="graph-detail__type">Action -- Authentication</div>
-                <div class="graph-detail__gwt">
-                  <strong>Given</strong> user is on login form<br />
-                  <strong>When</strong> credentials submitted<br />
-                  <strong>Then</strong> validate and authenticate
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Step 3: Evolve -->
-        <div class="product-step reveal">
-          <div class="product-step__text">
-            <div class="dimension-label">
-              <span class="step-number">03</span> Evolve
-            </div>
-            <h3>Describe what you want. Review before it commits.</h3>
-            <p>
-              Tell Kigumi what to build in natural language. It proposes changes
-              to the behavior scheme -- staged for your review. Accept, reject,
-              or refine. Nothing lands without your approval.
-            </p>
-          </div>
-          <div class="fake-ui">
-            <div class="fake-ui__bar">
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <span class="fake-ui__bar-title">kigumi -- chat</span>
-            </div>
-            <div class="fake-ui__body">
-              <div class="chat-messages">
-                <div class="chat-msg chat-msg--user">
-                  Add a password reset flow. User enters email, gets a magic
-                  link, lands on a reset form.
-                </div>
-                <div class="chat-msg chat-msg--ai">
-                  I'll add 3 new behaviors: RequestReset (action), ValidateToken
-                  (condition), and UpdatePassword (action). This connects to
-                  your existing Auth entity. Staging the changes now.
-                </div>
-              </div>
-              <div class="staging-panel">
-                <div class="staging-panel__label">Staged Changes</div>
-                <div class="staging-item">
-                  <span
-                    >+ RequestReset
-                    <span style="color: var(--text-dim)">(action)</span></span
-                  >
-                  <div class="staging-actions">
-                    <button class="staging-btn staging-btn--accept">
-                      Accept
-                    </button>
-                    <button class="staging-btn staging-btn--reject">
-                      Reject
-                    </button>
-                  </div>
-                </div>
-                <div class="staging-item">
-                  <span
-                    >+ ValidateToken
-                    <span style="color: var(--text-dim)"
-                      >(condition)</span
-                    ></span
-                  >
-                  <div class="staging-actions">
-                    <button class="staging-btn staging-btn--accept">
-                      Accept
-                    </button>
-                    <button class="staging-btn staging-btn--reject">
-                      Reject
-                    </button>
-                  </div>
-                </div>
-                <div class="staging-item">
-                  <span
-                    >+ UpdatePassword
-                    <span style="color: var(--text-dim)">(action)</span></span
-                  >
-                  <div class="staging-actions">
-                    <button class="staging-btn staging-btn--accept">
-                      Accept
-                    </button>
-                    <button class="staging-btn staging-btn--reject">
-                      Reject
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 4: Verify -->
-        <div class="product-step reveal">
-          <div class="product-step__text">
-            <div class="dimension-label">
-              <span class="step-number">04</span> Verify
-            </div>
-            <h3>14 of 16 behaviors verified. Automatically.</h3>
-            <p>
-              Every behavior in the scheme is validated against structural
-              rules, completeness checks, and consistency constraints. You know
-              exactly where the gaps are -- before they become bugs in
-              production.
-            </p>
-          </div>
-          <div class="fake-ui">
-            <div class="fake-ui__bar">
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <div class="fake-ui__dot"></div>
-              <span class="fake-ui__bar-title">kigumi -- verify</span>
-            </div>
-            <div class="fake-ui__body">
-              <div class="verify-score">
-                <div class="verify-score__value">14/16</div>
-                <div class="verify-score__label">Behaviors Verified</div>
-              </div>
-              <ul class="verify-list">
-                <li class="verify-item">
-                  <span class="verify-item__icon--pass">&#10003;</span>
-                  <span>Login flow -- all states reachable</span>
-                </li>
-                <li class="verify-item">
-                  <span class="verify-item__icon--pass">&#10003;</span>
-                  <span>Cart checkout -- data flows complete</span>
-                </li>
-                <li class="verify-item">
-                  <span class="verify-item__icon--pass">&#10003;</span>
-                  <span>User profile -- GWT examples present</span>
-                </li>
-                <li class="verify-item">
-                  <span class="verify-item__icon--pass">&#10003;</span>
-                  <span>Search -- condition edges valid</span>
-                </li>
-                <li class="verify-item">
-                  <span class="verify-item__icon--fail">&#10007;</span>
-                  <span>Password reset -- missing error state</span>
-                </li>
-                <li class="verify-item">
-                  <span class="verify-item__icon--fail">&#10007;</span>
-                  <span>Notifications -- orphaned event node</span>
-                </li>
-              </ul>
+            <!-- Bottom dock -->
+            <div class="proof-app__dock">
+              <span class="proof-app__tab proof-app__tab--active">Scheme</span>
+              <span class="proof-app__tab">PRD</span>
+              <span class="proof-app__tab">Decisions</span>
             </div>
           </div>
         </div>
@@ -1961,99 +2120,23 @@
     </div>
 
     <!-- ============================================
-         DIFFERENTIATION ROW
+         POSITIONING -- CONTRAST LINES
          ============================================ -->
-    <section class="diff-section">
+    <section class="positioning reveal">
       <div class="container">
-        <div class="diff-grid">
-          <div class="diff-card reveal reveal-delay-1">
-            <div class="diff-card__title">AI code tools</div>
-            <div class="diff-card__text">
-              Copilot, Cursor, and Devin generate code. Fast. But none of them
-              capture intent. You get more code and less understanding. The gap
-              widens with every commit. Kigumi works at the layer above -- where
-              intent lives.
-            </div>
-          </div>
-          <div class="diff-card reveal reveal-delay-2">
-            <div class="diff-card__title">Documentation tools</div>
-            <div class="diff-card__text">
-              Notion, Confluence, and READMEs describe what the system should
-              do. In theory. In practice, they're stale before the ink dries.
-              Kigumi's behavior scheme is the system -- not a description of it.
-              It evolves with the code.
-            </div>
-          </div>
-          <div class="diff-card reveal reveal-delay-3">
-            <div class="diff-card__title">Code audits</div>
-            <div class="diff-card__text">
-              Static analysis finds bugs. Linters enforce style. Neither tells
-              you what your system does or why. Kigumi maps behavior -- the
-              thing that actually matters when you're deciding what to build
-              next.
-            </div>
-          </div>
+        <div class="positioning__lines">
+          <p>
+            Coding agents understand your files.
+            <strong>Kigumi understands your system.</strong>
+          </p>
+          <p>
+            Code tools generate output. <strong>Kigumi captures intent.</strong>
+          </p>
+          <p>
+            Documentation describes what should happen.
+            <strong>Kigumi is what happens.</strong>
+          </p>
         </div>
-      </div>
-    </section>
-
-    <!-- Cut line -->
-    <div class="container">
-      <div class="cut-line"><div class="cut-line__diamond"></div></div>
-    </div>
-
-    <!-- ============================================
-         EVIDENCE SECTION
-         ============================================ -->
-    <section class="evidence reveal">
-      <div class="container container--narrow">
-        <h2 class="headline headline--section">
-          847 behaviors. 234 files. 12 minutes.
-        </h2>
-        <p class="subtext">Code can be rewritten. The behavior map persists.</p>
-
-        <div class="evidence-terminal">
-          <div>
-            <span class="dim">$</span>
-            <span class="sec">kigumi import ./src</span>
-          </div>
-          <div>
-            <span class="dim"> scanning</span> <span class="val">234</span>
-            <span class="dim">files...</span>
-          </div>
-          <div>
-            <span class="dim"> extracted</span> <span class="val">847</span>
-            <span class="dim">behaviors</span>
-          </div>
-          <div>
-            <span class="dim"> identified</span> <span class="val">52</span>
-            <span class="dim">states</span> <span class="val">189</span>
-            <span class="dim">actions</span> <span class="val">94</span>
-            <span class="dim">conditions</span>
-          </div>
-          <div>
-            <span class="dim"> mapped</span> <span class="val">312</span>
-            <span class="dim">data flows</span> <span class="val">200</span>
-            <span class="dim">events</span>
-          </div>
-          <div>
-            <span class="dim"> built</span> <span class="val">1,247</span>
-            <span class="dim">edges</span>
-          </div>
-          <div>
-            <span class="dim"> time</span> <span class="val">11m 47s</span>
-          </div>
-          <div>&nbsp;</div>
-          <div>
-            <span class="sec">scheme ready.</span>
-            <span class="val">&#10003;</span>
-          </div>
-        </div>
-
-        <p class="evidence__subtitle">
-          Built on a real compiler pipeline. 5 compilation targets. 11
-          structured tool definitions.
-        </p>
       </div>
     </section>
 
@@ -2070,27 +2153,76 @@
         <h2 class="headline headline--section reveal">
           Import your repo. See what it does.
         </h2>
-        <p class="cta-annotation reveal">Code changes. Behavior persists.</p>
+        <p class="cta-annotation reveal">
+          <em>Code changes. Behavior persists.</em>
+        </p>
         <div class="newsletter-form-container">
-            <form class="newsletter-form cta-form" action="https://app.loops.so/api/newsletter-form/cmmm7cqr400r50iyv5h5h5lai" method="POST">
-                <input class="newsletter-form-input" placeholder="you@example.com" required="" type="email" name="newsletter-form-input">
-                <button type="submit" class="newsletter-form-button btn btn--primary btn--ember">Join Waitlist</button>
-                <button type="button" class="newsletter-loading-button btn btn--primary btn--ember" style="display: none">Please wait...</button>
-            </form>
-            <div class="newsletter-success" style="display: none; align-items: center; justify-content: center; width: 100%;">
-                <p class="newsletter-success-message" style="var(--heading);">Thanks! We'll be in touch!</p>
-            </div>
-            <div class="newsletter-error" style="display: none; align-items: center; justify-content: center; width: 100%;">
-                <p class="newsletter-error-message" style="var(--heading);">Oops! Something went wrong, please try again</p>
-            </div>
+          <form
+            class="newsletter-form cta-form"
+            action="https://app.loops.so/api/newsletter-form/cmmm7cqr400r50iyv5h5h5lai"
+            method="POST"
+          >
+            <input
+              class="newsletter-form-input"
+              placeholder="ada@lovelace.com"
+              required=""
+              type="email"
+              name="newsletter-form-input"
+            />
             <button
-            class='newsletter-back-button btn btn--primary btn--ember'
-            type='button'
-            style="display: none;margin:10px auto;text-align:center;cursor:pointer"
-            onmouseout='this.style.textDecoration="none"'
-            onmouseover='this.style.textDecoration="underline"'>
-            &larr; Back
+              type="submit"
+              class="newsletter-form-button btn btn--primary btn--ember"
+            >
+              Join Waitlist
             </button>
+            <button
+              type="button"
+              class="newsletter-loading-button btn btn--primary btn--ember"
+              style="display: none"
+            >
+              Please wait...
+            </button>
+          </form>
+          <div
+            class="newsletter-success"
+            style="
+              display: none;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+            "
+          >
+            <p class="newsletter-success-message" style="var(--heading);">
+              Thanks! We'll be in touch!
+            </p>
+          </div>
+          <div
+            class="newsletter-error"
+            style="
+              display: none;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+            "
+          >
+            <p class="newsletter-error-message" style="var(--heading);">
+              Oops! Something went wrong, please try again
+            </p>
+          </div>
+          <button
+            class="newsletter-back-button btn btn--primary btn--ember"
+            type="button"
+            style="
+              display: none;
+              margin: 10px auto;
+              text-align: center;
+              cursor: pointer;
+            "
+            onmouseout="this.style.textDecoration = 'none'"
+            onmouseover="this.style.textDecoration = 'underline'"
+          >
+            &larr; Back
+          </button>
         </div>
       </div>
     </section>
@@ -2161,134 +2293,132 @@
             }
           });
         });
-
-        // ---- CTA form ----
-        var form = document.getElementById("waitlist-form");
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          form.style.display = "none";
-          document.getElementById("waitlist-thanks").style.display = "block";
-        });
       });
     </script>
     <script>
-        function submitHandler(event) {
-          event.preventDefault();
-          var container = event.target.parentNode;
-          var form = container.querySelector(".newsletter-form");
-          var formInput = container.querySelector(".newsletter-form-input");
-          var success = container.querySelector(".newsletter-success");
-          var errorContainer = container.querySelector(".newsletter-error");
-          var errorMessage = container.querySelector(".newsletter-error-message");
-          var backButton = container.querySelector(".newsletter-back-button");
-          var submitButton = container.querySelector(".newsletter-form-button");
-          var loadingButton = container.querySelector(".newsletter-loading-button");
+      function submitHandler(event) {
+        event.preventDefault();
+        var container = event.target.parentNode;
+        var form = container.querySelector(".newsletter-form");
+        var formInput = container.querySelector(".newsletter-form-input");
+        var success = container.querySelector(".newsletter-success");
+        var errorContainer = container.querySelector(".newsletter-error");
+        var errorMessage = container.querySelector(".newsletter-error-message");
+        var backButton = container.querySelector(".newsletter-back-button");
+        var submitButton = container.querySelector(".newsletter-form-button");
+        var loadingButton = container.querySelector(
+          ".newsletter-loading-button",
+        );
 
-
-          const rateLimit = () => {
-            errorContainer.style.display = "flex";
-            errorMessage.innerText = "Too many signups, please try again in a little while";
-            submitButton.style.display = "none";
-            formInput.style.display = "none";
-            backButton.style.display = "block";
-          }
-
-          // Compare current time with time of previous sign up
-          var time = new Date();
-          var timestamp = time.valueOf();
-          var previousTimestamp = localStorage.getItem("loops-form-timestamp");
-
-          // If last sign up was less than a minute ago
-          // display error
-          if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
-            rateLimit();
-            return;
-          }
-          localStorage.setItem("loops-form-timestamp", timestamp);
-
+        const rateLimit = () => {
+          errorContainer.style.display = "flex";
+          errorMessage.innerText =
+            "Too many signups, please try again in a little while";
           submitButton.style.display = "none";
-          loadingButton.style.display = "flex";
+          formInput.style.display = "none";
+          backButton.style.display = "block";
+        };
 
-          var formBody = "userGroup=Waiting%20list&mailingLists=&email="
-            + encodeURIComponent(formInput.value)
-            ;
+        // Compare current time with time of previous sign up
+        var time = new Date();
+        var timestamp = time.valueOf();
+        var previousTimestamp = localStorage.getItem("loops-form-timestamp");
 
-          fetch(event.target.action, {
-            method: "POST",
-            body: formBody,
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
+        // If last sign up was less than a minute ago
+        // display error
+        if (
+          previousTimestamp &&
+          Number(previousTimestamp) + 60000 > timestamp
+        ) {
+          rateLimit();
+          return;
+        }
+        localStorage.setItem("loops-form-timestamp", timestamp);
+
+        submitButton.style.display = "none";
+        loadingButton.style.display = "flex";
+
+        var formBody =
+          "userGroup=Waiting%20list&mailingLists=&email=" +
+          encodeURIComponent(formInput.value);
+        fetch(event.target.action, {
+          method: "POST",
+          body: formBody,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
+          .then((res) => [res.ok, res.json(), res])
+          .then(([ok, dataPromise, res]) => {
+            if (ok) {
+              // If response successful
+              // display success
+              success.style.display = "flex";
+              form.reset();
+            } else {
+              // If response unsuccessful
+              // display error message or response status
+              dataPromise.then((data) => {
+                errorContainer.style.display = "flex";
+                errorMessage.innerText = data.message
+                  ? data.message
+                  : res.statusText;
+              });
+            }
           })
-            .then((res) => [res.ok, res.json(), res])
-            .then(([ok, dataPromise, res]) => {
-              if (ok) {
-                // If response successful
-                // display success
-                success.style.display = "flex";
-                form.reset();
-              } else {
-                // If response unsuccessful
-                // display error message or response status
-                dataPromise.then(data => {
-                  errorContainer.style.display = "flex";
-                  errorMessage.innerText = data.message
-                    ? data.message
-                    : res.statusText;
-                });
-              }
-            })
-            .catch(error => {
-              // check for cloudflare error
-              if (error.message === "Failed to fetch") {
-                rateLimit();
-                return;
-              }
-              // If error caught
-              // display error message if available
-              errorContainer.style.display = "flex";
-              if (error.message) errorMessage.innerText = error.message;
-              localStorage.setItem("loops-form-timestamp", '');
-            })
-            .finally(() => {
-              formInput.style.display = "none";
-              loadingButton.style.display = "none";
-              backButton.style.display = "block";
-            });
+          .catch((error) => {
+            // check for cloudflare error
+            if (error.message === "Failed to fetch") {
+              rateLimit();
+              return;
             }
-            function resetFormHandler(event) {
-              var container = event.target.parentNode;
-              var formInput = container.querySelector(".newsletter-form-input");
-              var success = container.querySelector(".newsletter-success");
-              var errorContainer = container.querySelector(".newsletter-error");
-              var errorMessage = container.querySelector(".newsletter-error-message");
-              var backButton = container.querySelector(".newsletter-back-button");
-              var submitButton = container.querySelector(".newsletter-form-button");
+            // If error caught
+            // display error message if available
+            errorContainer.style.display = "flex";
+            if (error.message) errorMessage.innerText = error.message;
+            localStorage.setItem("loops-form-timestamp", "");
+          })
+          .finally(() => {
+            formInput.style.display = "none";
+            loadingButton.style.display = "none";
+            backButton.style.display = "block";
+          });
+      }
+      function resetFormHandler(event) {
+        var container = event.target.parentNode;
+        var formInput = container.querySelector(".newsletter-form-input");
+        var success = container.querySelector(".newsletter-success");
+        var errorContainer = container.querySelector(".newsletter-error");
+        var errorMessage = container.querySelector(".newsletter-error-message");
+        var backButton = container.querySelector(".newsletter-back-button");
+        var submitButton = container.querySelector(".newsletter-form-button");
 
-              success.style.display = "none";
-              errorContainer.style.display = "none";
-              errorMessage.innerText = "Oops! Something went wrong, please try again";
-              backButton.style.display = "none";
-              formInput.style.display = "flex";
-              submitButton.style.display = "flex";
-            }
+        success.style.display = "none";
+        errorContainer.style.display = "none";
+        errorMessage.innerText = "Oops! Something went wrong, please try again";
+        backButton.style.display = "none";
+        formInput.style.display = "flex";
+        submitButton.style.display = "flex";
+      }
 
-            var formContainers = document.getElementsByClassName(
-              "newsletter-form-container"
-            );
+      var formContainers = document.getElementsByClassName(
+        "newsletter-form-container",
+      );
 
-            for (var i = 0; i < formContainers.length; i++) {
-              var formContainer = formContainers[i]
-              var handlersAdded = formContainer.classList.contains('newsletter-handlers-added')
-              if (handlersAdded) continue;
-              formContainer
-                .querySelector(".newsletter-form")
-                .addEventListener("submit", submitHandler);
-              formContainer
-                .querySelector(".newsletter-back-button")
-                .addEventListener("click", resetFormHandler);
-              formContainer.classList.add("newsletter-handlers-added");
-            }
+      for (var i = 0; i < formContainers.length; i++) {
+        var formContainer = formContainers[i];
+        var handlersAdded = formContainer.classList.contains(
+          "newsletter-handlers-added",
+        );
+        if (handlersAdded) continue;
+        formContainer
+          .querySelector(".newsletter-form")
+          .addEventListener("submit", submitHandler);
+        formContainer
+          .querySelector(".newsletter-back-button")
+          .addEventListener("click", resetFormHandler);
+        formContainer.classList.add("newsletter-handlers-added");
+      }
     </script>
   </body>
 </html>
