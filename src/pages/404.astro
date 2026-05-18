@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="Not found - Kigumi"
+  description="That page does not exist."
+>
+  <Nav />
+  <section class="cta-section">
+    <div class="container">
+      <div class="dimension-label" style="justify-content: center;">
+        Error 404
+      </div>
+      <h1 class="headline headline--section">This page doesn't exist.</h1>
+      <p class="cta-annotation"><em>The behavior is missing.</em></p>
+      <div style="margin-top: 20px">
+        <a href="/" class="btn btn--primary btn--ember">Back to Kigumi</a>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</Layout>
