@@ -11,7 +11,3 @@ npm-debug.log*
 .env.production
 # macOS
 .DS_Store
-# OpenWolf transient artifacts (memory/anatomy/cerebrum/buglog ARE tracked)
-.wolf/designqc-captures/
-.wolf/token-ledger.json
-.wolf/designqc-report.json
